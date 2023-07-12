@@ -1,6 +1,17 @@
 import React from "react";
 
 export default function Home() {
+  const skills = [
+    { name: "React", percent: 90 },
+    { name: "Next.js", percent: 100 },
+    { name: "Gatsby.js", percent: 60 },
+    { name: "JavaScript", percent: 100 },
+    { name: "HTML5", percent: 100 },
+    { name: "CSS3", percent: 90 },
+    { name: "Node.js", percent: 90 },
+    { name: "GraphQL", percent: 70 },
+  ];
+
   return (
     <div className="bg-gray-900 h-screen">
       <div className="w-full bg-gray-dark shadow-lg flex flex-row justify-between items-center text-gray-light p-8">
@@ -48,49 +59,50 @@ export default function Home() {
 
       <div className="w-full bg-gray-dark h-screen p-8">
         <div className="text-center">
-          <h1 className="text-4xl text-gray-light font-bold font-custom border-t-4 border-light-orange inline-block">
-            About me
-          </h1>
-          <h2 className="text-2xl font-medium font-custom mt-4  text-gray-light">
-            My bio
-          </h2>
-          <p className="text-gray-light mt-4">
-            Specializing in Front-end Development with a Computer Science degree
-            from the University of Maribor, I bring to the table expert
-            knowledge in JavaScript, ReactJS, Next.js, and Gatsby.js. I have
-            hands-on experience in HTML5 and CSS3 for creating modern,
-            responsive web designs and am proficient in UI/UX design, ensuring
-            seamless user experiences across devices. I am skilled in using
-            TailwindCSS frameworks for efficient and responsive web development.
-            <br />
-            <br />
-            As for Back-end Development, I am adept in using Node.js for
-            server-side programming, ensuring reliable and scalable solutions. I
-            have expertise in GraphQL and Prisma for efficient API development
-            and data handling.
+          <div className="relative">
+            <div className="w-12 mx-auto h-1 bg-light-orange mb-2"></div>
+            <h1 className="text-4xl text-gray-light font-bold font-custom">
+              About me
+            </h1>
+          </div>
+          <div className="relative mt-8">
+            <div className="w-8 mx-auto h-1 bg-gray-light mb-2"></div>
+            <h2 className="text-2xl font-medium font-custom text-gray-light">
+              My journey
+            </h2>
+          </div>
+          <p className="text-gray-light mt-4 px-8 py-10">
+            I am a dedicated Front-end Developer with a degree in Computer
+            Science from the University of Maribor. I have honed my skills in
+            JavaScript, ReactJS, Next.js, and Gatsby.js, and I am proficient in
+            leveraging these technologies to build impressive, modern web
+            designs. I also have a deep understanding of UI/UX design
+            principles, ensuring seamless user experiences across devices. My
+            experience extends to using TailwindCSS frameworks to enable
+            efficient and responsive web development. In the realm of Back-end
+            Development, I have built scalable solutions using Node.js and
+            effectively handled data through GraphQL and Prisma.
           </p>
-          <h2 className="text-2xl font-bold font-custom mt-4 border-t-4 border-light-orange inline-block text-gray-light">
-            My Skills
-          </h2>
-          <div className="grid grid-cols-2 gap-4 mt-4">
-            {[
-              "React",
-              "JavaScript",
-              "Next.js",
-              "Gatsby.js",
-              "HTML5",
-              "CSS3",
-              "Node.js",
-              "GraphQL",
-            ].map((skill, index) => (
+
+          <div className="relative mt-8">
+            <div className="w-8 mx-auto h-1 bg-gray-light mb-1"></div>
+            <h2 className="text-2xl font-bold font-custom text-gray-light my-3">
+              My Skills
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 gap-4 mt-4 px-8">
+            {skills.map((skill, index) => (
               <div key={index} className="bg-gray-dark1 p-4 rounded">
-                <h3 className="font-bold font-custom text-gray-light">
-                  {skill}
-                </h3>
-                <div className="w-full bg-light-orange rounded h-2 mt-2">
+                <div className="flex justify-between">
+                  <h3 className="font-bold font-custom text-gray-light">
+                    {skill.name}
+                  </h3>
+                  <span>{skill.percent}%</span>
+                </div>
+                <div className="w-full bg-gray-light rounded h-2 mt-2">
                   <div
-                    className="bg-orange-500 rounded h-2"
-                    style={{ width: "90%" }}
+                    className="bg-light-orange rounded h-2"
+                    style={{ width: `${skill.percent}%` }}
                   ></div>
                 </div>
               </div>
