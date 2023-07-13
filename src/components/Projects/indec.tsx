@@ -1,8 +1,11 @@
 import React from "react";
 
-const Projects = React.forwardRef((props, ref) => {
+const Projects = React.forwardRef<HTMLDivElement>((props, ref) => {
   return (
-    <div className="w-full bg-gray-dark1 h-screen flex flex-col justify-center items-center p-8">
+    <div
+      ref={ref}
+      className="w-full bg-gray-dark1 h-screen flex flex-col justify-center items-center p-8"
+    >
       <div className="text-center">
         <div className="relative">
           <div className="w-12 mx-auto h-1 bg-light-orange mb-2"></div>
