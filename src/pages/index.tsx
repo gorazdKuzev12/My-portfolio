@@ -8,8 +8,8 @@ import Footer from "@/components/Footer";
 import Projects from "@/components/Projects/indec";
 
 export default function Home() {
-  const aboutMeRef = React.useRef<HTMLElement | null>(null);
-  const projectsRef = React.useRef<HTMLElement | null>(null);
+  const aboutMeRef = React.useRef<HTMLDivElement>(null);
+  const projectsRef = React.useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {

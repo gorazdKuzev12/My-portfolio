@@ -1,7 +1,7 @@
 import React from "react";
 import Cube from "../Cube";
 
-const AboutMe = React.forwardRef((props, ref) => {
+const AboutMe = React.forwardRef<HTMLDivElement>((props, ref) => {
   const skills = [
     { name: "React", percent: 90 },
     { name: "Next.js", percent: 100 },
@@ -13,7 +13,7 @@ const AboutMe = React.forwardRef((props, ref) => {
     { name: "GraphQL", percent: 70 },
   ];
   return (
-    <div className="w-full bg-gray-dark h-screen p-8 flex">
+    <div ref={ref} className="w-full bg-gray-dark h-screen p-8 flex">
       <div className="text-center flex-grow">
         <div className="relative">
           <div className="w-12 mx-auto h-1 bg-light-orange mb-2"></div>
