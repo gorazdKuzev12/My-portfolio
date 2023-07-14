@@ -5,7 +5,7 @@ import HomePage from "@/components/HomePage";
 import NavBar from "@/components/NavBar";
 import Blog from "@/components/Blog";
 import Footer from "@/components/Footer";
-import Projects from "@/components/Projects/indec";
+import Projects from "@/components/Projects/index";
 
 export default function Home() {
   const aboutMeRef = React.useRef<HTMLElement | null>(null);
