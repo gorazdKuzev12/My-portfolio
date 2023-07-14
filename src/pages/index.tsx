@@ -8,9 +8,6 @@ import Footer from "@/components/Footer";
 import Projects from "@/components/Projects/index";
 
 export default function Home() {
-  const aboutMeRef = React.useRef<HTMLElement | null>(null);
-  const projectsRef = React.useRef<HTMLElement | null>(null);
-
   return (
     <div className="bg-gray-900 h-screen">
       <NavBar />

@@ -26,28 +26,41 @@ const ContactMe = () => {
                 <FiMail size={32} className="text-light-orange" />
               </div>
               <div className="text-left">
-                <h3 className="text-lg font-bold text-gray-light ">Email</h3>
-                <a href="mailto:gorazd.kuzev10@gmail.com">
+                <h3 className="text-lg font-bold text-gray-light">Email</h3>
+                <a
+                  href="mailto:gorazd.kuzev10@gmail.com"
+                  className=" text-gray-light"
+                >
                   gorazd.kuzev10@gmail.com
                 </a>
               </div>
             </div>
-            <div className="flex items-center text-gray-light space-x-4">
-              <div className="bg-white p-2 rounded-full">
-                <FiGithub size={32} />
+
+            <div className="flex items-center text-gray-light space-x-4 p-3 bg-white shadow-lg">
+              <div className="p-3 rounded-full">
+                <FiGithub size={32} className="text-light-orange" />
               </div>
               <div className="text-left">
-                <h3 className="text-lg font-bold text-gray-light ">Github</h3>
-                <a href="https://github.com/gorazdkuzev122">gorazdkuzev122</a>
+                <h3 className="text-lg font-bold text-gray-light">Github</h3>
+                <a
+                  href="https://github.com/gorazdkuzev122"
+                  className=" text-gray-light"
+                >
+                  gorazdkuzev122
+                </a>
               </div>
             </div>
-            <div className="flex items-center text-light-gray space-x-4">
-              <div className="bg-white p-2 rounded-full text-gray-light">
-                <FiLinkedin size={32} />
+
+            <div className="flex items-center text-light-gray space-x-4 p-3 bg-white shadow-lg">
+              <div className="p-3 rounded-full">
+                <FiLinkedin size={32} className="text-light-orange" />
               </div>
-              <div className="text-left text-gray-light">
+              <div className="text-left">
                 <h3 className="text-lg font-bold text-gray-light">LinkedIn</h3>
-                <a href="https://www.linkedin.com/in/gorazd-kuzev">
+                <a
+                  href="https://www.linkedin.com/in/gorazd-kuzev"
+                  className=" text-gray-light"
+                >
                   Gorazd Kuzev
                 </a>
               </div>
@@ -66,27 +79,40 @@ const ContactMe = () => {
                   type="text"
                   name="name"
                   placeholder="Your Name"
-                  className="w-1/2 px-4 py-2 border-gray-light rounded bg-transparent"
-                  // style={{ backgroundColor: "transparent !important" }}
+                  className="w-full px-4 py-3 rounded text-lg"
+                  style={{
+                    border: "1px solid #d3dce6",
+                    backgroundColor: "transparent",
+                  }}
                 />
                 <input
                   type="email"
                   name="email"
                   placeholder="Your Email"
-                  className="w-1/2 px-4 py-2 border-gray-light rounded bg-transparent"
-                  // style={{ backgroundColor: "transparent !important" }}
+                  className="w-full px-4 py-3 rounded text-lg"
+                  style={{
+                    border: "1px solid #d3dce6",
+                    backgroundColor: "transparent",
+                  }}
                 />
               </div>
               <textarea
                 name="message"
                 placeholder="Your Message"
-                rows={4}
-                className="w-full px-4 py-2 border-gray-light rounded bg-transparent"
-                // style={{ backgroundColor: "transparent !important" }}
+                rows={8}
+                className="w-full px-4 py-3 rounded text-lg"
+                style={{
+                  border: "1px solid #d3dce6",
+                  backgroundColor: "transparent",
+                }}
               ></textarea>
               <button
                 type="submit"
-                className="px-4 py-2 rounded bg-dark-gray text-light-gray"
+                className="px-8 py-2 rounded font-custom m-5 text-gray-light hover:border-gray-light hover:bg-light-orange hover:text-gray-dark transition-all duration-300"
+                style={{
+                  border: "2px solid #ff7849",
+                  backgroundColor: "transparent",
+                }}
               >
                 Send
               </button>

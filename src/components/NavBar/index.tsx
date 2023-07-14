@@ -15,16 +15,16 @@ const NavBar = () => {
       </div>
 
       <div className="flex flex-row space-x-0 md:space-x-8 mt-4 md:mt-0">
-        <a href="#" className="p-3 text-light-gray font-medium font-custom">
+        <a href="" className="p-3 text-light-gray font-medium font-custom">
           About me
         </a>
-        <a href="#" className="p-3 text-gray font-medium font-custom">
+        <a href="" className="p-3 text-gray font-medium font-custom">
           Projects
         </a>
-        <a href="#" className="p-3 text-gray font-medium font-custom">
+        <a href="" className="p-3 text-gray font-medium font-custom">
           Blog
         </a>
-        <a href="#" className="p-3 text-gray font-medium font-custom">
+        <a href="" className="p-3 text-gray font-medium font-custom">
           Contact
         </a>
         <button

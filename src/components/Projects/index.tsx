@@ -4,7 +4,7 @@ import Cube from "../Cube";
 const Projects = () => {
   const projectData = [
     { id: 1, title: "Nonstop Dogwear", date: "2022-07-12" },
-    { id: 2, title: "Ida Kids Store", date: "2022-08-15" },
+    { id: 2, title: "Recepie WebSite", date: "2022-08-15" },
     { id: 3, title: "Ida Dashboard", date: "2022-09-01" },
   ];
 
