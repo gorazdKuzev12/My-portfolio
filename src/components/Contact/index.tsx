@@ -1,22 +1,29 @@
 import React from "react";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import Cube from "../Cube";
 
 const ContactMe = () => {
   return (
-    <div className="w-full h-screen flex justify-center items-center bg-gray-dark p-8">
-      <div className="text-center">
-        <div className="relative">
+    <div className="w-full h-screen flex justify-center bg-gray-dark p-4 sm:p-16 relative">
+      <div className="absolute top-6 right-8 flex space-x-2">
+        {[...Array(5)].map((_, index) => (
+          <Cube key={index} isSelected={index === 3} />
+        ))}
+      </div>
+
+      <div className="text-center w-full sm:w-3/4">
+        <div className="relative ">
           <div className="w-12 mx-auto h-1 bg-light-orange mb-2"></div>
-          <h1 className="text-4xl text-gray-light font-bold font-custom">
+          <h1 className="text-2xl sm:text-4xl text-gray-light font-bold font-custom">
             {"<contact me/>"}
           </h1>
         </div>
 
-        <div className="flex flex-row w-full justify-center text-center mt-8">
-          <div className="w-1/2 space-y-8">
-            <div className="flex items-center text-gray-light space-x-4">
-              <div className="bg-white p-2 rounded-full">
-                <FiMail size={32} />
+        <div className="flex flex-col sm:flex-row w-full justify-center text-center mt-20 sm:mt-40 space-y-10 sm:space-x-10">
+          <div className="space-y-10">
+            <div className="flex items-center text-gray-light space-x-4 p-3 bg-white shadow-lg">
+              <div className="p-3 rounded-full">
+                <FiMail size={32} className="text-light-orange" />
               </div>
               <div className="text-left">
                 <h3 className="text-lg font-bold text-gray-light ">Email</h3>
@@ -47,9 +54,14 @@ const ContactMe = () => {
             </div>
           </div>
 
-          <div className="w-1/2 space-y-8">
-            <form action="" method="post" className="space-y-4">
-              <div className="flex space-x-4">
+          <div className="space-y-10">
+            <form
+              action=""
+              method="post"
+              className="space-y-5"
+              style={{ backgroundColor: "transparent" }}
+            >
+              <div className="flex flex-col sm:space-x-4 sm:flex-row space-y-4 sm:space-y-0">
                 <input
                   type="text"
                   name="name"

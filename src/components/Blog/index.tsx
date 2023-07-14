@@ -1,4 +1,5 @@
 import React from "react";
+import Cube from "../Cube";
 
 const Blog = () => {
   const posts = [
@@ -22,15 +23,21 @@ const Blog = () => {
     },
   ];
   return (
-    <div className="h-screen bg-gray-dark1  flex flex-col items-center justify-center p-8">
-      <div className="text-center">
+    <div className="min-h-screen bg-gray-dark1 flex flex-col items-center p-4 sm:p-8 relative">
+      <div className="absolute top-6 right-8 flex space-x-2">
+        {[...Array(5)].map((_, index) => (
+          <Cube key={index} isSelected={index === 4} />
+        ))}
+      </div>
+
+      <div className="text-center w-full sm:w-3/4">
         <div className="relative">
           <div className="w-12 mx-auto h-1 bg-light-orange mb-2"></div>
-          <h1 className="text-4xl text-gray-light font-bold font-custom">
-            My Blog Posts
+          <h1 className="text-2xl sm:text-4xl text-gray-light font-bold font-custom">
+            {"<blog posts/>"}
           </h1>
         </div>
-        <div className="grid grid-cols-3 gap-4 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-20 sm:mt-40">
           {posts.map((post) => (
             <div
               key={post.id}
