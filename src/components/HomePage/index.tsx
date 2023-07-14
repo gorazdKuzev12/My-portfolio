@@ -80,7 +80,7 @@ export default function HomePage() {
           <motion.img
             src="./images/profile2.jpg"
             alt="Description"
-            className="object-cover h-full w-full mt-3 z-10"
+            className="object-cover h-full w-full mt-6 z-10"
             style={{ translateY: scrollY / 2 }}
           />
         </div>
