@@ -15,23 +15,23 @@ const NavBar = () => {
       </div>
 
       <div className="flex flex-row space-x-8">
-        <a href="#" className="p-3 text-gray font-medium font-custom">
+        <a href="#" className="p-3 text-light-gray font-medium font-custom">
           About me
         </a>
-        <a href="#" className="p-3 text-gray font-medium font-custom">
+        <a href="#" className="p-3 text-light-gray font-medium font-custom">
           Projects
         </a>
-        <a href="#" className="p-3 text-gray font-medium font-custom">
+        <a href="#" className="p-3 text-light-gray font-medium font-custom">
           Blog
         </a>
-        <a href="#" className="p-3 text-gray font-medium font-custom">
+        <a href="#" className="p-3 text-light-gray font-medium font-custom">
           Contact
         </a>
         <button
           onClick={toggleTheme}
           className={`p-3 ${
             theme === "dark"
-              ? "text-light-orange font-medium font-custom"
+              ? "text-gray font-medium font-custom"
               : "text-gray font-medium font-custom"
           }`}
         >

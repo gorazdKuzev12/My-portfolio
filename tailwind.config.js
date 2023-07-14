@@ -21,6 +21,9 @@ module.exports = {
       fontFamily: {
         custom: ["CustomFont", "sans-serif"],
       },
+      // blur: {
+      //   xs: "2px",
+      // },
       spacing: {
         "8xl": "96rem",
         "9xl": "128rem",
