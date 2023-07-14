@@ -45,14 +45,16 @@ export default function HomePage() {
   const scrollY = useScrollPosition();
 
   return (
-    <div className="h-full flex relative min-h-screen min-w-screen">
-      <div className="w-2/4 bg-gray-dark1 flex flex-col justify-center items-start text-gray-light p-8 space-y-8">
+    <div className="flex flex-col md:flex-row relative min-h-screen min-w-screen  bg-gray-dark1 ">
+      <div className="w-full md:w-2/4 bg-gray-dark1 flex flex-col justify-center items-start text-gray-light p-8 space-y-8">
         <div className="flex items-start space-x-4">
           <div>
             <div className="border-l-4 border-light-orange pl-4">
-              <h1 className="text-7xl font-bold font-custom">GORAZD KUZEV</h1>
+              <h1 className="text-5xl md:text-7xl font-bold font-custom">
+                GORAZD KUZEV
+              </h1>
 
-              <h2 className="text-5xl font-medium font-custom mb-5">
+              <h2 className="text-4xl md:text-5xl font-medium font-custom mb-5">
                 {displayedPhrase.split("").map((letter: any, index: any) => (
                   <span
                     key={index}
@@ -75,7 +77,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="w-2/4 flex flex-col justify-center items-start p-8 bg-gray-dark1 overflow-hidden">
+      <div className="w-full md:w-2/4 flex flex-col justify-center items-start p-8 bg-gray-dark1 overflow-hidden">
         <div className="w-full h-full relative">
           <motion.img
             src="./images/profile2.jpg"
