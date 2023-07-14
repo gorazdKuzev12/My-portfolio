@@ -21,14 +21,24 @@ module.exports = {
       fontFamily: {
         custom: ["CustomFont", "sans-serif"],
       },
+      transitionDuration: {
+        2000: "2000ms",
+        3000: "3000ms",
+        // Add as many as you need...
+      },
       spacing: {
         "8xl": "96rem",
         "9xl": "128rem",
       },
       animation: {
         "spin-slow": "spin 3s linear infinite",
+        "curtain-show": "curtain 1s ease-out",
       },
       keyframes: {
+        "curtain-show": {
+          "0%": { transform: "translate-y-full" },
+          "100%": { transform: "translate-y-0" },
+        },
         spin: {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
