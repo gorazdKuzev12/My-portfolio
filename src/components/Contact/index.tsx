@@ -4,7 +4,7 @@ import Cube from "../Cube";
 
 const ContactMe = () => {
   return (
-    <div className="w-full h-screen flex justify-center bg-gray-dark p-4 sm:p-16 relative">
+    <div className="w-full h-screen flex justify-center bg-gray-dark p-10 sm:p-16 relative">
       <div className="absolute top-6 right-8 flex space-x-2">
         {[...Array(5)].map((_, index) => (
           <Cube key={index} isSelected={index === 3} />
@@ -12,16 +12,14 @@ const ContactMe = () => {
       </div>
 
       <div className="text-center w-full sm:w-3/4">
-        <div className="relative ">
-          <div className="w-12 mx-auto h-1 bg-light-orange mb-2"></div>
-          <h1 className="text-2xl sm:text-4xl text-gray-light font-bold font-custom">
-            {"<contact me/>"}
+        <div className="relative">
+          <h1 className="text-2xl mt-10 sm:text-4xl text-light-orange font-custom tracking-wider uppercase">
+            {"CONTACT ME"}
           </h1>
         </div>
-
-        <div className="flex flex-col sm:flex-row w-full justify-center text-center mt-20 sm:mt-40 space-y-10 sm:space-x-10">
-          <div className="space-y-10">
-            <div className="flex items-center text-gray-light space-x-4 p-3 bg-white shadow-lg">
+        <div className="flex flex-col sm:flex-row w-full justify-center text-center sm:mt-20 space-y-7 sm:space-x-20 items-start">
+          <div className="space-y-16">
+            <div className="flex items-center text-gray-light space-x-6 p-5 bg-white shadow-lg">
               <div className="p-3 rounded-full">
                 <FiMail size={32} className="text-light-orange" />
               </div>
@@ -36,7 +34,7 @@ const ContactMe = () => {
               </div>
             </div>
 
-            <div className="flex items-center text-gray-light space-x-4 p-3 bg-white shadow-lg">
+            <div className="flex items-center text-gray-light space-x-6 p-5 bg-white shadow-lg">
               <div className="p-3 rounded-full">
                 <FiGithub size={32} className="text-light-orange" />
               </div>
@@ -51,7 +49,7 @@ const ContactMe = () => {
               </div>
             </div>
 
-            <div className="flex items-center text-light-gray space-x-4 p-3 bg-white shadow-lg">
+            <div className="flex items-center text-light-gray space-x-6 p-5 bg-white shadow-lg">
               <div className="p-3 rounded-full">
                 <FiLinkedin size={32} className="text-light-orange" />
               </div>
@@ -71,15 +69,15 @@ const ContactMe = () => {
             <form
               action=""
               method="post"
-              className="space-y-5"
+              className="space-y-10"
               style={{ backgroundColor: "transparent" }}
             >
-              <div className="flex flex-col sm:space-x-4 sm:flex-row space-y-4 sm:space-y-0">
+              <div className="flex flex-col sm:space-x-4 sm:flex-row space-y-6 sm:space-y-0">
                 <input
                   type="text"
                   name="name"
                   placeholder="Your Name"
-                  className="w-full px-4 py-3 rounded text-lg"
+                  className="w-full px-4 py-4 rounded text-lg focus:border-light-orange focus:ring-2 focus:ring-light-orange focus:outline-none"
                   style={{
                     border: "1px solid #d3dce6",
                     backgroundColor: "transparent",
@@ -89,7 +87,7 @@ const ContactMe = () => {
                   type="email"
                   name="email"
                   placeholder="Your Email"
-                  className="w-full px-4 py-3 rounded text-lg"
+                  className="w-full px-4 py-4 rounded text-lg focus:border-light-orange focus:ring-2 focus:ring-light-orange focus:outline-none"
                   style={{
                     border: "1px solid #d3dce6",
                     backgroundColor: "transparent",
@@ -99,8 +97,8 @@ const ContactMe = () => {
               <textarea
                 name="message"
                 placeholder="Your Message"
-                rows={8}
-                className="w-full px-4 py-3 rounded text-lg"
+                rows={10}
+                className="w-full px-4 py-4 rounded text-lg focus:border-light-orange focus:ring-2 focus:ring-light-orange focus:outline-none"
                 style={{
                   border: "1px solid #d3dce6",
                   backgroundColor: "transparent",
@@ -108,11 +106,7 @@ const ContactMe = () => {
               ></textarea>
               <button
                 type="submit"
-                className="px-8 py-2 rounded font-custom m-5 text-gray-light hover:border-gray-light hover:bg-light-orange hover:text-gray-dark transition-all duration-300"
-                style={{
-                  border: "2px solid #ff7849",
-                  backgroundColor: "transparent",
-                }}
+                className="px-8 py-3 w-full rounded font-custom text-light-orange border-2 border-light-orange bg-transparent hover:border-orange-lighter hover:text-orange-lighter transition-all duration-300"
               >
                 Send
               </button>

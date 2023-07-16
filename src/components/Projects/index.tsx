@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Cube from "../Cube";
 
 const Projects = () => {
@@ -6,7 +6,38 @@ const Projects = () => {
     { id: 1, title: "Nonstop Dogwear", date: "2022-07-12" },
     { id: 2, title: "Recepie WebSite", date: "2022-08-15" },
     { id: 3, title: "Ida Dashboard", date: "2022-09-01" },
+    { id: 4, title: "Ida Store", date: "2022-09-01" },
   ];
+
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startPosition, setStartPosition] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const onMouseDown = (e: any) => {
+    setIsDragging(true);
+    setStartPosition(e.pageX - scrollRef.current?.offsetLeft!);
+    setScrollLeft(scrollRef.current?.scrollLeft!);
+  };
+
+  const onMouseMove = (e: any) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current?.offsetLeft!;
+    const SCROLL_SPEED = 2;
+    const walk = (x - startPosition) * SCROLL_SPEED;
+    scrollRef.current!.scrollLeft = scrollLeft - walk;
+  };
+
+  const onMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth / 4.1;
+    }
+  }, []);
 
   return (
     <div className="w-full bg-gray-dark1 min-h-screen flex flex-col p-4 sm:p-8 relative">
@@ -17,22 +48,28 @@ const Projects = () => {
       </div>
       <div className="text-center">
         <div className="relative">
-          <div className="w-12 mx-auto h-1 bg-light-orange mb-2"></div>
-          <h1 className="text-2xl sm:text-4xl text-gray-light font-bold font-custom tracking-wide">
-            {"<projects/>"}
+          <h1 className="text-2xl mt-10 sm:text-4xl text-light-orange  font-custom tracking-wider uppercase">
+            {"PROJECTS"}
           </h1>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-24 sm:mt-48 px-4 sm:px-8">
+        <div
+          ref={scrollRef}
+          className="flex mt-24 sm:mt-18 px-4 sm:px-8 overflow-x-scroll scrollbar-thin scrollbar-thumb-red-500 scrollbar-track-gray-800 space-x-1"
+          onMouseDown={onMouseDown}
+          onMouseLeave={onMouseUp}
+          onMouseUp={onMouseUp}
+          onMouseMove={onMouseMove}
+        >
           {projectData.map(({ id, title, date }) => (
             <div
-              className="bg-gray-dark1 relative group cursor-pointer"
+              className="bg-gray-dark1 relative group cursor-pointer min-w-[25vw] flex-shrink-0 flex items-center justify-center"
               key={id}
-              style={{ minHeight: "200px" }}
+              style={{ minHeight: "120px" }}
             >
               <img
                 src={`./images/project${id}.jpg`}
                 alt={title}
-                className="w-full h-full object-cover transition-all duration-500 ease-in-out group-hover:blur-sm"
+                className="w-5/6 h-5/6 object-cover transition-all duration-500 ease-in-out transform group-hover:blur"
               />
               <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out bg-black bg-opacity-0 opacity-0 group-hover:opacity-100 group-hover:bg-opacity-70">
                 <div className="text-center space-y-4">

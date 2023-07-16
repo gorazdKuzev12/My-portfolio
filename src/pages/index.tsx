@@ -15,7 +15,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-gray-dark1 h-screen relative overflow-hidden">
+    <div className="bg-gray-dark1  relative overflow-hidden">
       <div
         className={`fixed inset-0 bg-gray-dark1 z-50 transition-all duration-2000 ease-in-out transform ${
           isLoaded ? "-translate-y-full" : "translate-y-0"

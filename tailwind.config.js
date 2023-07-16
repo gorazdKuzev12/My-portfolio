@@ -11,6 +11,8 @@ module.exports = {
       "gray-dark1": "#1E1E1E",
       "gray-light": "#d3dce6",
       "white-original": "#ffffff",
+      "orange-lighter": "#ff9865",
+
       gray: "#8492a6",
     },
     fontFamily: {
@@ -19,7 +21,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        custom: ["CustomFont", "sans-serif"],
+        custom: ["Cinzel", "sans-serif"],
       },
       transitionDuration: {
         2000: "2000ms",
@@ -50,5 +52,8 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/aspect-ratio"),
+    // ...
+  ],
 };
