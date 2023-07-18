@@ -6,6 +6,12 @@
   height: 2px;
 }
 
+.gradient-text {
+  background: linear-gradient(45deg, #f7ebee 30%, #ffe4d6 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Track */
 ::-webkit-scrollbar-track {
   background: transparent;

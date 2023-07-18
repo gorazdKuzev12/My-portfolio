@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import Cube from "../Cube";
 
@@ -16,12 +16,18 @@ const ContactMe = () => {
           <h1 className="text-2xl mt-10 sm:text-4xl text-light-orange font-custom tracking-wider uppercase">
             {"CONTACT ME"}
           </h1>
+          <p className="mt-5 text-base font-light gradient-text tracking-wider">
+            {"Let's start an exciting journey together."}
+          </p>
         </div>
         <div className="flex flex-col sm:flex-row w-full justify-center text-center sm:mt-20 space-y-7 sm:space-x-20 items-start">
           <div className="space-y-16">
-            <div className="flex items-center text-gray-light space-x-6 p-5 bg-white shadow-lg">
-              <div className="p-3 rounded-full">
-                <FiMail size={32} className="text-light-orange" />
+            <div className="flex items-center text-gray-light space-x-6 p-5 bg-white shadow-lg hover:group">
+              <div className="p-3 rounded-full group-hover:text-orange-lighter">
+                <FiMail
+                  size={32}
+                  className="transition-colors duration-300 text-light-orange"
+                />
               </div>
               <div className="text-left">
                 <h3 className="text-lg font-bold text-gray-light">Email</h3>
@@ -34,9 +40,12 @@ const ContactMe = () => {
               </div>
             </div>
 
-            <div className="flex items-center text-gray-light space-x-6 p-5 bg-white shadow-lg">
-              <div className="p-3 rounded-full">
-                <FiGithub size={32} className="text-light-orange" />
+            <div className="flex items-center text-gray-light space-x-6 p-5 bg-white shadow-lg hover:group">
+              <div className="p-3 rounded-full group-hover:text-light-orange">
+                <FiGithub
+                  size={32}
+                  className="transition-colors duration-300 text-light-orange"
+                />
               </div>
               <div className="text-left">
                 <h3 className="text-lg font-bold text-gray-light">Github</h3>
@@ -49,9 +58,12 @@ const ContactMe = () => {
               </div>
             </div>
 
-            <div className="flex items-center text-light-gray space-x-6 p-5 bg-white shadow-lg">
-              <div className="p-3 rounded-full">
-                <FiLinkedin size={32} className="text-light-orange" />
+            <div className="flex items-center text-light-gray space-x-6 p-5 bg-white shadow-lg hover:group">
+              <div className="p-3 rounded-full group-hover:text-light-orange">
+                <FiLinkedin
+                  size={32}
+                  className="transition-colors duration-300 text-light-orange"
+                />
               </div>
               <div className="text-left">
                 <h3 className="text-lg font-bold text-gray-light">LinkedIn</h3>
