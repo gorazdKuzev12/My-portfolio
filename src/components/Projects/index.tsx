@@ -71,7 +71,7 @@ const Projects = () => {
 
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth / 4.1;
+      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth / 4;
     }
   }, []);
 
@@ -109,7 +109,7 @@ const Projects = () => {
               <img
                 src={`./images/project${id}.jpg`}
                 alt={title}
-                className="w-5/6 h-5/6 object-cover transition-all duration-500 ease-in-out transform group-hover:blur"
+                className="w-3/4 h-3/4 object-cover transition-all duration-500 ease-in-out transform group-hover:blur"
                 // set selected project
               />
               <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out bg-black bg-opacity-0 opacity-0 group-hover:opacity-100 group-hover:bg-opacity-70">
