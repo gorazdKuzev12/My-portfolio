@@ -11,6 +11,8 @@ module.exports = {
       "gray-dark1": "#1E1E1E",
       "gray-light": "#d3dce6",
       "white-original": "#ffffff",
+      "orange-lighter": "#ff9865",
+
       gray: "#8492a6",
     },
     fontFamily: {
@@ -19,7 +21,12 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        custom: ["CustomFont", "sans-serif"],
+        custom: ["Cinzel", "sans-serif"],
+      },
+      transitionDuration: {
+        2000: "2000ms",
+        3000: "3000ms",
+        // Add as many as you need...
       },
       spacing: {
         "8xl": "96rem",
@@ -27,8 +34,13 @@ module.exports = {
       },
       animation: {
         "spin-slow": "spin 3s linear infinite",
+        "curtain-show": "curtain 1s ease-out",
       },
       keyframes: {
+        "curtain-show": {
+          "0%": { transform: "translate-y-full" },
+          "100%": { transform: "translate-y-0" },
+        },
         spin: {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
@@ -40,5 +52,8 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/aspect-ratio"),
+    // ...
+  ],
 };

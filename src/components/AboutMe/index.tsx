@@ -18,9 +18,8 @@ const AboutMe = React.forwardRef((props, ref) => {
     <div className="w-full bg-gray-dark min-h-screen p-4 sm:p-8 flex flex-col sm:flex-row">
       <div className="text-center flex-grow">
         <div className="relative">
-          <div className="w-12 mx-auto h-1 bg-light-orange mb-2"></div>
-          <h1 className="text-4xl sm:text-5xl text-gray-light font-bold font-custom">
-            {"<about me/>"}
+          <h1 className="text-2xl mt-10 sm:text-4xl text-light-orange  font-custom tracking-wider uppercase">
+            {"ABOUT ME"}
           </h1>
         </div>
         <div className="relative mt-8">
@@ -38,8 +37,8 @@ const AboutMe = React.forwardRef((props, ref) => {
           </p>
           <div className="relative mt-8">
             <div className="w-8 mx-auto h-1 bg-gray-light mb-1"></div>
-            <h2 className="text-2xl sm:text-3xl font-bold font-custom text-gray-light my-3">
-              {"<skills/>"}
+            <h2 className="text-2xl sm:text-3xl  font-custom text-gray-light my-3  tracking-wider">
+              SKILLS
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 px-4 sm:px-8">
