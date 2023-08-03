@@ -1,32 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdMoon, IoMdSunny } from "react-icons/io";
 
 const NavBar = () => {
-  const [theme, setTheme] = useState("dark");
+  const getInitialTheme = () => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("theme") || "dark";
+    }
+    return "dark";
+  };
+  const [theme, setTheme] = useState(getInitialTheme);
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    document.body.className = newTheme;
+    localStorage.setItem("theme", newTheme);
   };
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, []); // Empty dependency array to run only on component mount
+  const scrollToSection = (sectionId: string) => {
+    const sectionElement = document.getElementById(sectionId);
+    sectionElement?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div className="w-full bg-gray-dark shadow-lg flex flex-col md:flex-row justify-between items-center text-gray-light p-4 md:p-8">
+    <div
+      className={`w-full  shadow-lg flex flex-col md:flex-row justify-between items-center text-gray-light p-4 md:p-8 ${
+        theme === "dark" ? "bg-gray-dark" : "bg-white-original"
+      }`}
+    >
       <div className="text-2xl md:text-3xl font-bold ml-4 font-custom tracking-wide text-center">
         <span className="text-light-orange">./QZ</span>
-        <span className="text-gray-light"> code</span>
+        <span
+          className={`${theme === "dark" ? "text-gray-light" : "text-gray"}`}
+        >
+          {" "}
+          code
+        </span>
       </div>
 
       <div className="flex flex-row space-x-0 md:space-x-8 mt-4 md:mt-0">
-        <a href="" className="p-3 text-light-gray font-medium font-custom">
+        <button
+          onClick={() => scrollToSection("about-section")}
+          className="p-3 text-light-gray font-medium font-custom"
+        >
           About me
-        </a>
-        <a href="" className="p-3 text-gray font-medium font-custom">
+        </button>
+        <button
+          className="p-3 text-light-gray font-medium font-custom"
+          onClick={() => scrollToSection("projects-section")}
+        >
           Projects
-        </a>
-        <a href="" className="p-3 text-gray font-medium font-custom">
+        </button>
+        <button
+          onClick={() => scrollToSection("blog-section")}
+          className="p-3 text-light-gray font-medium font-custom"
+        >
           Blog
-        </a>
-        <a href="" className="p-3 text-gray font-medium font-custom">
+        </button>
+        <button
+          onClick={() => scrollToSection("contact-section")}
+          className="p-3 text-light-gray font-medium font-custom"
+        >
           Contact
-        </a>
+        </button>
         <button
           onClick={toggleTheme}
           className={`p-3 ${

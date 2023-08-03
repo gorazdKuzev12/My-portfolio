@@ -53,9 +53,6 @@ const Projects = () => {
     setScrollLeft(scrollRef.current?.scrollLeft!);
   };
 
-  console.log(showSelectedProject);
-  console.log(selectedProject);
-
   const onMouseMove = (e: any) => {
     if (!isDragging) return;
     e.preventDefault();
@@ -71,12 +68,27 @@ const Projects = () => {
 
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth / 4.1;
+      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth / 4;
     }
   }, []);
+  const sampleImages = [
+    "./images/ida1.jpg",
+    "./images/ida2.jpg",
+    "./images/ida3.jpg",
+    "./images/ida4.jpg",
+    "./images/ida5.jpg",
+    "./images/ida6.jpg",
+    "./images/ida7.jpg",
+    "./images/ida8.jpg",
+
+    // ... more image URLs
+  ];
 
   return (
-    <div className="w-full bg-gray-dark1 min-h-screen flex flex-col p-4 sm:p-8 relative">
+    <div
+      className="w-full bg-gray-dark1 min-h-screen flex flex-col p-4 sm:p-8 relative"
+      id="projects-section"
+    >
       <div className="absolute top-6 right-8 flex space-x-2">
         {[...Array(5)].map((_, index) => (
           <Cube key={index} isSelected={index === 2} />
@@ -109,7 +121,7 @@ const Projects = () => {
               <img
                 src={`./images/project${id}.jpg`}
                 alt={title}
-                className="w-5/6 h-5/6 object-cover transition-all duration-500 ease-in-out transform group-hover:blur"
+                className="w-3/4 h-3/4 object-cover transition-all duration-500 ease-in-out transform group-hover:blur"
                 // set selected project
               />
               <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out bg-black bg-opacity-0 opacity-0 group-hover:opacity-100 group-hover:bg-opacity-70">
@@ -140,6 +152,7 @@ const Projects = () => {
             technologies={selectedProject.technologies}
             setShowSelectedProject={setShowSelectedProject}
             setSelectedProject={setSelectedProject}
+            images={sampleImages}
           />
         )}
       </div>

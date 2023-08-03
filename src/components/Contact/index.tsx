@@ -4,7 +4,10 @@ import Cube from "../Cube";
 
 const ContactMe = () => {
   return (
-    <div className="w-full h-screen flex justify-center bg-gray-dark p-10 sm:p-16 relative">
+    <div
+      className="w-full min-h-screen flex justify-center bg-gray-dark p-10 sm:p-16 relative"
+      id="contact-section"
+    >
       <div className="absolute top-6 right-8 flex space-x-2">
         {[...Array(5)].map((_, index) => (
           <Cube key={index} isSelected={index === 3} />
@@ -20,7 +23,7 @@ const ContactMe = () => {
             {"Let's start an exciting journey together."}
           </p>
         </div>
-        <div className="flex flex-col sm:flex-row w-full justify-center text-center sm:mt-20 space-y-7 sm:space-x-20 items-start">
+        <div className="flex flex-col sm:flex-row w-full justify-center text-center sm:mt-20 space-y-2 sm:space-x-20 items-start">
           <div className="space-y-16">
             <div className="flex items-center text-gray-light space-x-6 p-5 bg-white shadow-lg hover:group">
               <div className="p-3 rounded-full group-hover:text-orange-lighter">

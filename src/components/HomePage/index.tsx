@@ -82,13 +82,13 @@ export default function HomePage() {
           <motion.img
             src="./images/profile2.jpg"
             alt="Description"
-            className="object-cover h-full w-full mt-3 z-10"
+            className="object-cover h-full w-full mt-5 z-10"
             style={{ translateY: scrollY / 2 }}
           />
         </div>
       </div>
 
-      <div className="absolute top-6 right-8 flex space-x-2">
+      <div className="absolute top-6 right-8 flex space-x-2 ">
         {[...Array(5)].map((_, index) => (
           <Cube key={index} isSelected={index === 0} />
         ))}

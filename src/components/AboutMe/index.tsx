@@ -15,7 +15,10 @@ const AboutMe = React.forwardRef((props, ref) => {
     { name: "MySql", percent: 80 },
   ];
   return (
-    <div className="w-full bg-gray-dark min-h-screen p-4 sm:p-8 flex flex-col sm:flex-row">
+    <div
+      className="w-full bg-gray-dark min-h-screen p-4 sm:p-8 flex flex-col sm:flex-row"
+      id="about-section"
+    >
       <div className="text-center flex-grow">
         <div className="relative">
           <h1 className="text-2xl mt-10 sm:text-4xl text-light-orange  font-custom tracking-wider uppercase">

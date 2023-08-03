@@ -3,7 +3,7 @@
 /* Width */
 ::-webkit-scrollbar {
   width: 13px;
-  height: 2px;
+  height: 3px;
 }
 
 .gradient-text {
