@@ -23,7 +23,10 @@ const Blog = () => {
     },
   ];
   return (
-    <div className="min-h-screen bg-gray-dark1 flex flex-col items-center p-4 sm:p-8 relative">
+    <div
+      className="min-h-screen bg-gray-dark1 flex flex-col items-center p-4 sm:p-8 relative"
+      id="blog-section"
+    >
       <div className="absolute top-6 right-8 flex space-x-2">
         {[...Array(5)].map((_, index) => (
           <Cube key={index} isSelected={index === 4} />
