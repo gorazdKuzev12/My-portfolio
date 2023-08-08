@@ -3,8 +3,12 @@ import { motion } from "framer-motion";
 
 import Cube from "../Cube";
 import useScrollPosition from "../ScrollHandler";
+type Props = {
+  theme: "dark" | "light";
+  toggleTheme: () => void;
+};
 
-export default function HomePage() {
+const HomePage: React.FC<Props> = ({ theme, toggleTheme }) => {
   const phrases = [
     "WEB DEVELOPER",
     "FULL STACK ",
@@ -45,12 +49,24 @@ export default function HomePage() {
   const scrollY = useScrollPosition();
 
   return (
-    <div className="flex flex-col md:flex-row relative min-h-screen min-w-screen  bg-gray-dark1 ">
-      <div className="w-full md:w-2/4 bg-gray-dark1 flex flex-col justify-center items-start text-gray-light p-8 space-y-8">
+    <div
+      className={`flex flex-col md:flex-row relative min-h-screen min-w-screen  ${
+        theme === "dark" ? "bg-gray-dark1" : "bg-white-original"
+      }`}
+    >
+      <div
+        className={`w-full md:w-2/4  flex flex-col justify-center items-start text-gray-light p-8 space-y-8  ${
+          theme === "dark" ? "bg-gray-dark1" : "bg-white-original"
+        }`}
+      >
         <div className="flex items-start space-x-4">
           <div>
             <div className="border-l-4 border-light-orange pl-4">
-              <h1 className="text-5xl md:text-7xl font-bold font-custom">
+              <h1
+                className={`text-5xl md:text-7xl font-bold font-custom ${
+                  theme === "dark" ? "text-light-gray" : "text-gray-dark"
+                }`}
+              >
                 GORAZD KUZEV
               </h1>
 
@@ -77,7 +93,11 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="w-full md:w-2/4 flex flex-col justify-center items-start p-8 bg-gray-dark1 overflow-hidden">
+      <div
+        className={`"w-full md:w-2/4 flex flex-col justify-center items-start p-8 overflow-hidden ${
+          theme === "dark" ? "bg-gray-dark1 " : "bg-white-original"
+        }`}
+      >
         <div className="w-full h-full relative">
           <motion.img
             src="./images/profile2.jpg"
@@ -95,4 +115,5 @@ export default function HomePage() {
       </div>
     </div>
   );
-}
+};
+export default HomePage;

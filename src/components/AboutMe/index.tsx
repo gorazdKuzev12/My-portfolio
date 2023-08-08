@@ -1,7 +1,10 @@
 import React from "react";
 import Cube from "../Cube";
-
-const AboutMe = React.forwardRef((props, ref) => {
+type Props = {
+  theme: "dark" | "light";
+  toggleTheme: () => void;
+};
+const AboutMe: React.FC<Props> = ({ theme, toggleTheme }) => {
   const skills = [
     { name: "HTML5", percent: 100 },
     { name: "CSS3 - Tailwind - Style components", percent: 90 },
@@ -16,7 +19,9 @@ const AboutMe = React.forwardRef((props, ref) => {
   ];
   return (
     <div
-      className="w-full bg-gray-dark min-h-screen p-4 sm:p-8 flex flex-col sm:flex-row"
+      className={`w-full  min-h-screen p-4 sm:p-8 flex flex-col sm:flex-row ${
+        theme === "dark" ? "bg-gray-dark" : "bg-gray-light"
+      }`}
       id="about-section"
     >
       <div className="text-center flex-grow">
@@ -46,7 +51,12 @@ const AboutMe = React.forwardRef((props, ref) => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 px-4 sm:px-8">
             {skills.map((skill, index) => (
-              <div key={index} className="bg-gray-dark1 p-4 rounded">
+              <div
+                key={index}
+                className={`p-4 rounded ${
+                  theme === "dark" ? "bg-gray-dark1 " : "bg-white-original"
+                }`}
+              >
                 <div className="flex justify-between">
                   <h3 className="font-bold font-custom text-gray-light">
                     {skill.name}
@@ -73,8 +83,6 @@ const AboutMe = React.forwardRef((props, ref) => {
       </div>
     </div>
   );
-});
-
-AboutMe.displayName = "AboutMe";
+};
 
 export default AboutMe;
