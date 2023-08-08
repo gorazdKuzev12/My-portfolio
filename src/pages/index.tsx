@@ -13,6 +13,25 @@ export default function Home() {
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+  const [theme, setTheme] = useState<"dark" | "light">("dark"); // default to light mode
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme === "dark" || storedTheme === "light") {
+      setTheme(storedTheme);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    document.body.className = newTheme;
+    localStorage.setItem("theme", newTheme);
+  };
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, []); // Empty dependency array to run only on component mount
 
   return (
     <div className="bg-gray-dark1  relative overflow-hidden">
@@ -26,9 +45,10 @@ export default function Home() {
           <span className="text-gray-light"> code</span>
         </div>
       </div>
-      <NavBar />
-      <HomePage />
-      <AboutMe />
+      <NavBar theme={theme} toggleTheme={toggleTheme} />
+
+      <HomePage theme={theme} toggleTheme={toggleTheme} />
+      <AboutMe theme={theme} toggleTheme={toggleTheme} />
       <Projects />
       <ContactMe />
       <Blog />
