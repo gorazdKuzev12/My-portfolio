@@ -8,7 +8,12 @@ interface ProjectData {
   technologies: string[];
 }
 
-const Projects = () => {
+type Props = {
+  theme: "dark" | "light";
+  toggleTheme: () => void;
+};
+
+const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
   const projectData: ProjectData[] = [
     {
       id: 1,
@@ -86,7 +91,9 @@ const Projects = () => {
 
   return (
     <div
-      className="w-full bg-gray-dark1 min-h-screen flex flex-col p-4 sm:p-8 relative"
+      className={`w-full  min-h-screen flex flex-col p-4 sm:p-8 relative ${
+        theme === "dark" ? "bg-gray-dark1" : "bg-white-original"
+      }`}
       id="projects-section"
     >
       <div className="absolute top-6 right-8 flex space-x-2">
@@ -110,7 +117,7 @@ const Projects = () => {
         >
           {projectData.map(({ id, title, date, technologies }) => (
             <div
-              className="bg-gray-dark1 relative group cursor-pointer min-w-[25vw] flex-shrink-0 flex items-center justify-center"
+              className=" relative group cursor-pointer min-w-[25vw] flex-shrink-0 flex items-center justify-center"
               key={id}
               style={{ minHeight: "120px" }}
               onClick={() => {

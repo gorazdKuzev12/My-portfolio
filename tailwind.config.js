@@ -9,7 +9,11 @@ module.exports = {
       yellow: "#ffc82c",
       "gray-dark": "#242424",
       "gray-dark1": "#1E1E1E",
+      "dark-gray": "#5A5A5A",
+      "gray-menu": "#808080",
+
       "gray-light": "#e0e0e0",
+
       "white-original": "#ffffff",
       "orange-lighter": "#ff9865",
 

@@ -31,7 +31,11 @@ const AboutMe: React.FC<Props> = ({ theme, toggleTheme }) => {
           </h1>
         </div>
         <div className="relative mt-8">
-          <p className="text-gray-light mt-4 px-4 sm:px-8 py-10 text-sm sm:text-base">
+          <p
+            className={`mt-4 px-4 sm:px-8 py-10 text-sm sm:text-base ${
+              theme === "dark" ? "text-gray-light" : "text-dark-gray"
+            }`}
+          >
             I am a dedicated Fullstack Developer with 3 years of experience. I
             have a degree in Computer Science from the University of Maribor. I
             have honed my skills in JavaScript, ReactJS, Next.js, and Gatsby.js,
@@ -45,7 +49,11 @@ const AboutMe: React.FC<Props> = ({ theme, toggleTheme }) => {
           </p>
           <div className="relative mt-8">
             <div className="w-8 mx-auto h-1 bg-gray-light mb-1"></div>
-            <h2 className="text-2xl sm:text-3xl  font-custom text-gray-light my-3  tracking-wider">
+            <h2
+              className={`text-2xl sm:text-3xl  font-custom  my-3  tracking-wider ${
+                theme === "dark" ? "text-gray-light" : "text-dark-gray"
+              }`}
+            >
               SKILLS
             </h2>
           </div>
@@ -58,10 +66,18 @@ const AboutMe: React.FC<Props> = ({ theme, toggleTheme }) => {
                 }`}
               >
                 <div className="flex justify-between">
-                  <h3 className="font-bold font-custom text-gray-light">
+                  <h3
+                    className={`font-bold font-custom  ${
+                      theme === "dark" ? "text-gray-light" : "text-dark-gray"
+                    }`}
+                  >
                     {skill.name}
                   </h3>
-                  <span className="font-bold font-custom text-gray-light">
+                  <span
+                    className={`font-bold font-custom  ${
+                      theme === "dark" ? "text-gray-light" : "text-dark-gray"
+                    }`}
+                  >
                     {skill.percent}%
                   </span>
                 </div>
