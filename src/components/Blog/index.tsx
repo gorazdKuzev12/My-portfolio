@@ -1,7 +1,11 @@
 import React from "react";
 import Cube from "../Cube";
+type Props = {
+  theme: "dark" | "light";
+  toggleTheme: () => void;
+};
 
-const Blog = () => {
+const Blog: React.FC<Props> = ({ theme, toggleTheme }) => {
   const posts = [
     {
       id: 1,
@@ -24,7 +28,9 @@ const Blog = () => {
   ];
   return (
     <div
-      className="min-h-screen bg-gray-dark1 flex flex-col items-center p-4 sm:p-8 relative"
+      className={`min-h-screen bg-gray-dark1 flex flex-col items-center p-4 sm:p-8 relative ${
+        theme === "dark" ? "bg-gray-dark1" : "bg-white-original"
+      }`}
       id="blog-section"
     >
       <div className="absolute top-6 right-8 flex space-x-2">

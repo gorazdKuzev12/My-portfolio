@@ -49,9 +49,9 @@ export default function Home() {
 
       <HomePage theme={theme} toggleTheme={toggleTheme} />
       <AboutMe theme={theme} toggleTheme={toggleTheme} />
-      <Projects />
-      <ContactMe />
-      <Blog />
+      <Projects theme={theme} toggleTheme={toggleTheme} />
+      <ContactMe theme={theme} toggleTheme={toggleTheme} />
+      <Blog theme={theme} toggleTheme={toggleTheme} />
       <Footer />
     </div>
   );

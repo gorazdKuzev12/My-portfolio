@@ -64,7 +64,7 @@ const HomePage: React.FC<Props> = ({ theme, toggleTheme }) => {
             <div className="border-l-4 border-light-orange pl-4">
               <h1
                 className={`text-5xl md:text-7xl font-bold font-custom ${
-                  theme === "dark" ? "text-light-gray" : "text-gray-dark"
+                  theme === "dark" ? "text-light-gray" : "text-dark-gray"
                 }`}
               >
                 GORAZD KUZEV

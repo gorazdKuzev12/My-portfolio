@@ -14,7 +14,7 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
   return (
     <div
       className={`w-full  shadow-lg flex flex-col md:flex-row justify-between items-center text-gray-light p-4 md:p-8 ${
-        theme === "dark" ? "bg-gray-dark" : "bg-gray-light"
+        theme === "dark" ? "bg-gray-dark" : "bg-gray-menu"
       }`}
     >
       <div className="text-2xl md:text-3xl font-bold ml-4 font-custom tracking-wide text-center">
