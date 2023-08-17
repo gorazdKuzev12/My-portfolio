@@ -49,7 +49,9 @@ const Blog: React.FC<Props> = ({ theme, toggleTheme }) => {
           {posts.map((post) => (
             <div
               key={post.id}
-              className="p-6 bg-gray-dark1 rounded text-center shadow-md transition-all duration-500 ease-in-out transform hover:scale-105"
+              className={`p-6 rounded text-center shadow-md transition-all duration-500 ease-in-out transform hover:scale-105 ${
+                theme === "dark" ? "bg-gray-dark1 " : "bg-gray-light"
+              }`}
             >
               <img
                 src={post.image}
@@ -60,7 +62,11 @@ const Blog: React.FC<Props> = ({ theme, toggleTheme }) => {
                 <p className="mt-4 text-light-orange font-medium">
                   {post.date}
                 </p>
-                <h2 className="text-2xl text-gray-light font-bold font-custom mt-2">
+                <h2
+                  className={`text-2xl text-gray-light font-bold font-custom mt-2 ${
+                    theme === "dark" ? "text-gray-light" : "text-gray-menu"
+                  }`}
+                >
                   {post.title}
                 </h2>
               </div>
