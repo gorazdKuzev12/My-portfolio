@@ -52,7 +52,7 @@ export default function Home() {
       <Projects theme={theme} toggleTheme={toggleTheme} />
       <ContactMe theme={theme} toggleTheme={toggleTheme} />
       <Blog theme={theme} toggleTheme={toggleTheme} />
-      <Footer />
+      <Footer theme={theme} toggleTheme={toggleTheme} />
     </div>
   );
 }
