@@ -76,7 +76,7 @@ const Project: React.FC<ProjectProps> = ({
                 bright and pastel colors that resonate with the joy and
                 innocence of childhood. The user interface is intuitive, making
                 it easy even for the tech-unacquainted to navigate and find what
-                they're looking for. Features: Interactive Product Displays:
+                they are looking for. Features: Interactive Product Displays:
                 Items are showcased with interactive 3D views, allowing users to
                 get a near-tangible feel of the product.
               </p>
