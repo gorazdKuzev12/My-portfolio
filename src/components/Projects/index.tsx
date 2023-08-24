@@ -98,11 +98,12 @@ const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
       }`}
       id="projects-section"
     >
-      <div className="absolute top-6 right-8 flex space-x-2">
+      <div className="absolute top-6 right-8 flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
         {[...Array(5)].map((_, index) => (
           <Cube key={index} isSelected={index === 2} />
         ))}
       </div>
+
       <div className="text-center">
         <div className="relative">
           <h1 className="text-2xl mt-10 sm:text-4xl text-light-orange  font-custom tracking-wider uppercase">
