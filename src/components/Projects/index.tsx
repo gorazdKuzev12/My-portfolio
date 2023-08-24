@@ -59,12 +59,14 @@ const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
   };
 
   const onMouseMove = (e: any) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - scrollRef.current?.offsetLeft!;
-    const SCROLL_SPEED = 2;
-    const walk = (x - startPosition) * SCROLL_SPEED;
-    scrollRef.current!.scrollLeft = scrollLeft - walk;
+    if (window.innerWidth > 768) {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - scrollRef.current?.offsetLeft!;
+      const SCROLL_SPEED = 2;
+      const walk = (x - startPosition) * SCROLL_SPEED;
+      scrollRef.current!.scrollLeft = scrollLeft - walk;
+    }
   };
 
   const onMouseUp = () => {
@@ -109,7 +111,7 @@ const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
         </div>
         <div
           ref={scrollRef}
-          className="flex mt-20 sm:mt-18 px-4 sm:px-8 overflow-x-scroll scrollbar-thin scrollbar-thumb-red-500 scrollbar-track-gray-800 space-x-1"
+          className="flex flex-col sm:flex-row flex-wrap md:flex-nowrap mt-20 sm:mt-18 px-4 sm:px-8 overflow-hidden sm:overflow-x-scroll scrollbar-thin scrollbar-thumb-red-500 scrollbar-track-gray-800 space-y-4 sm:space-x-1 md:space-y-0"
           onMouseDown={onMouseDown}
           onMouseLeave={onMouseUp}
           onMouseUp={onMouseUp}
@@ -128,8 +130,7 @@ const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
               <img
                 src={`./images/project${id}.jpg`}
                 alt={title}
-                className="w-3/4 h-3/4 object-cover transition-all duration-500 ease-in-out transform group-hover:blur"
-                // set selected project
+                className="w-full sm:w-3/4 h-auto sm:h-3/4 object-cover transition-all duration-500 ease-in-out transform group-hover:blur"
               />
               <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out bg-black bg-opacity-0 opacity-0 group-hover:opacity-100 group-hover:bg-opacity-70">
                 <div className="text-center space-y-4">
