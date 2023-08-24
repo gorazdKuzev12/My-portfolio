@@ -108,7 +108,7 @@ const HomePage: React.FC<Props> = ({ theme, toggleTheme }) => {
         </div>
       </div>
 
-      <div className="absolute top-6 right-8 flex space-x-2 ">
+      <div className="absolute top-6 right-8 flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
         {[...Array(5)].map((_, index) => (
           <Cube key={index} isSelected={index === 0} />
         ))}

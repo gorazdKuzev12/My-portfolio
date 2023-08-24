@@ -9,17 +9,17 @@ const ContactMe: React.FC<Props> = ({ theme, toggleTheme }) => {
   return (
     <div
       id="contact-section"
-      className={`w-full min-h-screen flex justify-center  p-10 sm:p-16 relative ${
+      className={`w-full min-h-screen flex justify-center p-10 sm:p-16 relative ${
         theme === "dark" ? "bg-gray-dark" : "bg-gray-light"
       }`}
     >
-      <div className="absolute top-6 right-8 flex space-x-2">
+      <div className="absolute top-6 right-8 flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
         {[...Array(5)].map((_, index) => (
           <Cube key={index} isSelected={index === 3} />
         ))}
       </div>
 
-      <div className="text-center w-full sm:w-3/4">
+      <div className="text-center w-full sm:w-3/4 mt-6 sm:mt-0">
         <div className="relative">
           <h1 className="text-2xl mt-10 sm:text-4xl text-light-orange font-custom tracking-wider uppercase">
             {"CONTACT ME"}
@@ -32,8 +32,8 @@ const ContactMe: React.FC<Props> = ({ theme, toggleTheme }) => {
             {"Let's start an exciting journey together."}
           </p>
         </div>
-        <div className="flex flex-col sm:flex-row w-full justify-center text-center sm:mt-20 space-y-2 sm:space-x-20 items-start">
-          <div className="space-y-16">
+        <div className="flex flex-col sm:flex-row w-full justify-center text-center sm:mt-20 space-y-4 sm:space-y-0 sm:space-x-20">
+          <div className="space-y-8 sm:space-y-14">
             <div
               className={`flex items-center text-gray-light space-x-6 p-5 shadow-lg hover:group ${
                 theme === "dark" ? "bg-gray-dark" : "bg-white-original"
@@ -125,7 +125,7 @@ const ContactMe: React.FC<Props> = ({ theme, toggleTheme }) => {
             </div>
           </div>
 
-          <div className="space-y-10">
+          <div className="space-y-8 mt-8 sm:mt-0 sm:space-y-10">
             <form
               action=""
               method="post"
