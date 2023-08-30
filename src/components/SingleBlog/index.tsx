@@ -1,4 +1,5 @@
 import React from "react";
+import { FaArrowLeft } from "react-icons/fa";
 
 type SingleBlogProps = {
   image: string;
@@ -6,6 +7,7 @@ type SingleBlogProps = {
   title: string;
   content: string;
   theme: "dark" | "light";
+  onHide: () => void; // New prop to handle hiding the SingleBlog
 };
 
 const SingleBlog: React.FC<SingleBlogProps> = ({
@@ -14,6 +16,7 @@ const SingleBlog: React.FC<SingleBlogProps> = ({
   title,
   content,
   theme,
+  onHide,
 }) => {
   return (
     <div
@@ -21,6 +24,9 @@ const SingleBlog: React.FC<SingleBlogProps> = ({
         theme === "dark" ? "bg-gray-dark1" : "bg-white-original"
       }`}
     >
+      <div className="absolute top-6 right-8 cursor-pointer" onClick={onHide}>
+        <FaArrowLeft size={24} style={{ color: "white" }} />
+      </div>
       <div className="text-center w-full sm:w-3/4">
         <div className="relative p-6 rounded text-center shadow-md transition-all duration-500 ease-in-out transform">
           <img

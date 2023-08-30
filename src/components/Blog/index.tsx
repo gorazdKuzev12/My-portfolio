@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import Cube from "../Cube";
+import SingleBlog from "../SingleBlog";
 type Props = {
   theme: "dark" | "light";
   toggleTheme: () => void;
 };
+type BlogPost = {
+  id: number;
+  image: string;
+  date: string;
+  title: string;
+  content?: string; // Optional, if you don't have content in your initial posts array
+};
 
 const Blog: React.FC<Props> = ({ theme, toggleTheme }) => {
+  const [showSingleBlog, setShowSingleBlog] = useState(false);
+  const [selectedBlog, setSelectedBlog] = useState<BlogPost | null>(null);
+
   const posts = [
     {
       id: 1,
@@ -26,6 +37,26 @@ const Blog: React.FC<Props> = ({ theme, toggleTheme }) => {
       title: "Blog Post 3",
     },
   ];
+  const handleBlogClick = (post: any) => {
+    setSelectedBlog(post);
+    setShowSingleBlog(true);
+  };
+
+  if (showSingleBlog && selectedBlog) {
+    return (
+      <SingleBlog
+        image={selectedBlog.image}
+        date={selectedBlog.date}
+        title={selectedBlog.title}
+        content="Your blog content here." // You may need to add content to your posts or fetch it differently
+        theme={theme}
+        onHide={() => {
+          setShowSingleBlog(false);
+          setSelectedBlog(null);
+        }}
+      />
+    );
+  }
   return (
     <div
       className={`min-h-screen bg-gray-dark1 flex flex-col items-center p-4 sm:p-8 relative ${
@@ -52,6 +83,7 @@ const Blog: React.FC<Props> = ({ theme, toggleTheme }) => {
               className={`p-6 rounded text-center shadow-md transition-all duration-500 ease-in-out transform hover:scale-105 ${
                 theme === "dark" ? "bg-gray-dark1 " : "bg-gray-light"
               }`}
+              onClick={() => handleBlogClick(post)}
             >
               <img
                 src={post.image}
