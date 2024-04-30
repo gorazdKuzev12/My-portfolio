@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Cube from "../Cube";
 import SingleBlog from "../SingleBlog";
+import BlogPost1 from "../BlogPost1";
+import BlogPost2 from "../BlogPost2";
+import BlogPost3 from "../BlogPost3";
 type Props = {
   theme: "dark" | "light";
   toggleTheme: () => void;
@@ -10,12 +13,66 @@ type BlogPost = {
   image: string;
   date: string;
   title: string;
-  content?: string; // Optional, if you don't have content in your initial posts array
+  content: BlogContent; // Updated to use BlogContent interface
 };
+interface BlogSection {
+  title: string;
+  content: string;
+}
+
+interface BlogContent {
+  subtitle: string;
+  sections: BlogSection[];
+  conclusion: string;
+}
 
 const Blog: React.FC<Props> = ({ theme, toggleTheme }) => {
   const [showSingleBlog, setShowSingleBlog] = useState(false);
-  const [selectedBlog, setSelectedBlog] = useState<BlogPost | null>(null);
+  const [selectedBlog, setSelectedBlog] = useState(0);
+  const blogPostTemplate = `
+  Title:
+  "Mastering PostgreSQL: Installation, PGPASSWORD Solutions, and PgAdmin Introduction"
+  
+  Introduction:
+  Diving into the world of databases, PostgreSQL stands out as a robust choice. In this guide, we cover the essentials: installing PostgreSQL, resolving the PGPASSWORD issue on Windows, and exploring PgAdmin, the comprehensive database management tool.
+  
+  Subsection 1: Installing PostgreSQL
+  To embark on your journey with PostgreSQL:
+  
+  Download the PostgreSQL installer from the official website, suitable for your operating system.
+  Run the installer, selecting the default components, including the PostgreSQL Server and PgAdmin.
+  Set a secure password for the 'postgres' user; this is crucial for future database operations.
+  Subsection 2: Copying the Main Database
+  Post-installation, creating a database backup is a wise step. Utilize the pg_dump tool, bundled with PostgreSQL, with the command:
+  
+  bash
+  Copy code
+  pg_dump -h localhost -U your_username your_database_name > backup.sql
+  Save to grepper
+  Subsection 3: PGPASSWORD and Windows Command Prompt
+  Setting the PGPASSWORD environment variable in Windows can be tricky. Instead of using the command prompt, a reliable alternative is:
+  
+  Creating a .pgpass file in your user's home directory.
+  Adding the connection details in the format: hostname:port:database:username:password.
+  Adjusting the file permissions for security.
+  Subsection 4: Changing pg_dump to Prompt for a Password
+  If you prefer manual password entry, modify the pg_dump command:
+  
+  bash
+  Copy code
+  pg_dump -h localhost -U your_username -W your_database_name > backup.sql
+  Save to grepper
+  The -W flag ensures that pg_dump prompts for the password each time.
+  
+  Subsection 5: Getting Started with PgAdmin
+  PgAdmin, the intuitive graphical interface for PostgreSQL, simplifies database management:
+  
+  Open PgAdmin, installed alongside PostgreSQL.
+  Create a new server connection via the browser pane.
+  Enter the necessary connection details like host, database, username, and save.
+  Conclusion:
+  PostgreSQL offers a comprehensive database system, and while initial setup on Windows might present challenges, the solutions are straightforward. With pg_dump for backups and PgAdmin for management, your database journey is well-equipped.
+`;
 
   const posts = [
     {
@@ -23,97 +80,133 @@ const Blog: React.FC<Props> = ({ theme, toggleTheme }) => {
       image: "./images/post1.jpg",
       date: "12 July 2023",
       title: "Blog Post 1",
+      content: {
+        subtitle:
+          "Installation, PGPASSWORD Solutions, and PgAdmin Introduction",
+        sections: [
+          {
+            title: "Installing PostgreSQL",
+            content:
+              "To embark on your journey with PostgreSQL: Download the PostgreSQL installer from the official website, suitable for your operating system. Run the installer, selecting the default components, including the PostgreSQL Server and PgAdmin. Set a secure password for the 'postgres' user; this is crucial for future database operations.",
+          },
+          {
+            title: "Copying the Main Database",
+            content:
+              "Post-installation, creating a database backup is a wise step. Utilize the pg_dump tool, bundled with PostgreSQL, with the command: pg_dump -h localhost -U your_username your_database_name > backup.sql.",
+          },
+          {
+            title: "Additional Section Title",
+            content: "Content for the additional section.",
+          },
+          // Add more sections as needed
+        ],
+        conclusion:
+          "PostgreSQL offers a comprehensive database system, and while initial setup on Windows might present challenges, the solutions are straightforward. With pg_dump for backups and PgAdmin for management, your database journey is well-equipped.",
+      },
     },
     {
       id: 2,
       image: "./images/post2.jpg",
       date: "15 July 2023",
       title: "Blog Post 2",
+      content: {
+        subtitle:
+          "Installation, PGPASSWORD Solutions, and PgAdmin Introduction",
+        sections: [
+          {
+            title: "Installing PostgreSQL",
+            content:
+              "To embark on your journey with PostgreSQL: Download the PostgreSQL installer from the official website, suitable for your operating system. Run the installer, selecting the default components, including the PostgreSQL Server and PgAdmin. Set a secure password for the 'postgres' user; this is crucial for future database operations.",
+          },
+          {
+            title: "Copying the Main Database",
+            content:
+              "Post-installation, creating a database backup is a wise step. Utilize the pg_dump tool, bundled with PostgreSQL, with the command: pg_dump -h localhost -U your_username your_database_name > backup.sql.",
+          },
+          {
+            title: "Additional Section Title",
+            content: "Content for the additional section.",
+          },
+          // Add more sections as needed
+        ],
+        conclusion:
+          "PostgreSQL offers a comprehensive database system, and while initial setup on Windows might present challenges, the solutions are straightforward. With pg_dump for backups and PgAdmin for management, your database journey is well-equipped.",
+      },
     },
     {
       id: 3,
       image: "./images/post3.jpg",
       date: "20 July 2023",
       title: "Blog Post 3",
+      content: {
+        subtitle:
+          "Installation, PGPASSWORD Solutions, and PgAdmin Introduction",
+        sections: [
+          {
+            title: "Installing PostgreSQL",
+            content:
+              "To embark on your journey with PostgreSQL: Download the PostgreSQL installer from the official website, suitable for your operating system. Run the installer, selecting the default components, including the PostgreSQL Server and PgAdmin. Set a secure password for the 'postgres' user; this is crucial for future database operations.",
+          },
+          {
+            title: "Copying the Main Database",
+            content:
+              "Post-installation, creating a database backup is a wise step. Utilize the pg_dump tool, bundled with PostgreSQL, with the command: pg_dump -h localhost -U your_username your_database_name > backup.sql.",
+          },
+          {
+            title: "Additional Section Title",
+            content: "Content for the additional section.",
+          },
+          // Add more sections as needed
+        ],
+        conclusion:
+          "PostgreSQL offers a comprehensive database system, and while initial setup on Windows might present challenges, the solutions are straightforward. With pg_dump for backups and PgAdmin for management, your database journey is well-equipped.",
+      },
     },
   ];
   const handleBlogClick = (post: any) => {
-    setSelectedBlog(post);
+    setSelectedBlog(post.id);
     setShowSingleBlog(true);
   };
 
-  if (showSingleBlog && selectedBlog) {
-    return (
-      <SingleBlog
-        image={selectedBlog.image}
-        date={selectedBlog.date}
-        title={selectedBlog.title}
-        content="Installing PostgreSQL, Addressing the PGPASSWORD Issue on Windows, and Getting Started with PgAdmin
+  const renderBlogPost = () => {
+    switch (selectedBlog) {
+      case 1:
+        return (
+          <BlogPost3
+            onHide={() => {
+              setShowSingleBlog(false);
+              setSelectedBlog(0);
+            }}
+            theme={theme}
+          />
+        );
+      case 2:
+        return (
+          <BlogPost3
+            onHide={() => {
+              setShowSingleBlog(false);
+              setSelectedBlog(0);
+            }}
+            theme={theme}
+          />
+        );
+      case 3:
+        return (
+          <BlogPost3
+            onHide={() => {
+              setShowSingleBlog(false);
+              setSelectedBlog(0);
+            }}
+            theme={theme}
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
-        If you're diving into the world of databases, PostgreSQL (often referred to as Postgres) is an excellent choice. A powerful, open-source relational database system, Postgres boasts extensibility, SQL compliance, and an impressive feature set. In this guide, we'll walk you through the installation process, address a common issue with setting the PGPASSWORD on Windows, and introduce you to the handy tool, PgAdmin.
-        
-        1. Installing PostgreSQL
-        
-        To get started with Postgres:
-        
-        Download the installer for your operating system from the official website.
-        Run the installer and follow the on-screen instructions. You'll be prompted to choose components; for most users, the default components (PostgreSQL Server and PgAdmin) are suitable.
-        Set your password for the 'postgres' user during installation. Remember this password, as you'll need it for database operations.
-        2. Copying the Main Database
-        
-        Once installed, you might want to create a backup of your database. The pg_dump tool, bundled with Postgres, lets you do just that. Use the command:
-        
-        Copy code
-        pg_dump -h localhost -U your_username your_database_name > backup.sql
-        Save to grepper
-        3. PGPASSWORD and Windows Command Prompt
-        
-        On Windows, a common issue users encounter is setting the PGPASSWORD environment variable in the command prompt. This variable allows you to specify the database password, so you don't have to enter it repeatedly.
-        
-        However, simply entering:
-        
-        arduino
-        Copy code
-        set PGPASSWORD=your_password
-        Save to grepper
-        in the command prompt might not always work due to potential visibility issues or restrictive permissions.
-        
-        Solution: Use a .pgpass file.
-        
-        Create a text file named .pgpass in your user's home directory.
-        Add connection details: hostname:port:database:username:password.
-        Save and close the file.
-        Change the file's permissions to ensure it's readable only by you.
-        4. Changing pg_dump to Prompt for a Password
-        
-        If you prefer not to use the PGPASSWORD variable or the .pgpass file, you can modify the pg_dump command to ask for a password each time:
-        
-        Copy code
-        pg_dump -h localhost -U your_username -W your_database_name > backup.sql
-        Save to grepper
-        The -W flag forces pg_dump to prompt for the password.
-        
-        5. Getting Started with PgAdmin
-        
-        PgAdmin is a powerful graphical interface for managing your Postgres databases.
-        
-        Open PgAdmin, which was installed with Postgres.
-        In the browser pane, right-click on 'Servers' and select 'Create' > 'Server'.
-        In the 'General' tab, provide a name for your connection.
-        Switch to the 'Connection' tab. Fill in the host (usually localhost), port, database, and username details.
-        Click 'Save'. You'll be prompted for your password.
-        Using PgAdmin, you can easily manage your databases, tables, schemas, and execute SQL commands with its intuitive interface.
-        
-        Conclusion
-        
-        PostgreSQL is a robust database system, and while setting it up and getting started might present a few hitches, especially on Windows, solutions are readily available. With tools like pg_dump and PgAdmin, managing your databases becomes considerably more straightforward. Dive in, and happy data handling!" // You may need to add content to your posts or fetch it differently
-        theme={theme}
-        onHide={() => {
-          setShowSingleBlog(false);
-          setSelectedBlog(null);
-        }}
-      />
-    );
+  if (showSingleBlog && selectedBlog) {
+    return renderBlogPost();
   }
   return (
     <div
