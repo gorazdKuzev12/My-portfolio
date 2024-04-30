@@ -65,7 +65,7 @@ const BlogPost3 = ({
               style={{ maxWidth: "450px", display: "block", margin: "0 auto" }} // Inline styles for TypeScript
             /> */}
             Embarking on the journey of mastering PostgreSQL can seem daunting
-            at first. It's a powerful, robust database system that is widely
+            at first. It is a powerful, robust database system that is widely
             respected for its reliability and comprehensive features. In this
             post, I’ll walk you through my own experiences with installing
             PostgreSQL, tackling the notorious PGPASSWORD challenge on Windows,
@@ -93,7 +93,7 @@ const BlogPost3 = ({
             was the right version for my Windows setup. Running the installer
             was straightforward. I opted for the default components, which
             included the PostgreSQL Server and PgAdmin. During installation, I
-            was prompted to set a password for the 'postgres' user, which is
+            was prompted to set a password for the postgres user, which is
             essential for securing your database operations.
           </p>
           <div
@@ -129,7 +129,7 @@ const BlogPost3 = ({
             Here’s where things got a bit tricky. On Windows, setting up the
             PGPASSWORD environment variable was a hassle, and I struggled with
             it. After much trial and error, I found an alternative that worked
-            perfectly: I created a .pgpass file in my user's home directory,
+            perfectly: I created a .pgpass file in my users home directory,
             filled it with the necessary connection details in the format:
             hostname:port:database:username:password. I ensured to adjust the
             file permissions to keep it secure, protecting my database
@@ -183,8 +183,8 @@ const BlogPost3 = ({
             incredibly rewarding. With PgAdmin by my side and a reliable backup
             process in place using pg_dump, I feel well-equipped on my database
             management journey. I hope my experiences help you as you set up
-            your own PostgreSQL environment. Dive in, and don't be afraid to
-            tackle the challenges head-on—it's all part of becoming a master at
+            your own PostgreSQL environment. Dive in, and do not be afraid to
+            tackle the challenges head-on—it all part of becoming a master at
             managing your data.
           </p>
         </div>
