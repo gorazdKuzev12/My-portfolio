@@ -48,8 +48,8 @@ const BlogPost2 = ({
             Managing multiple languages and localized pathnames in a Next.js
             application can be a challenging task. Different languages often
             require unique URL structures, and dynamic content can complicate
-            matters further. In this post, I'll share how I tackled these issues
-            by creating a script to generate localized paths dynamically.
+            matters further. In this post, I will share how I tackled these
+            issues by creating a script to generate localized paths dynamically.
           </p>
           <h2
             className={`text-3xl mt-16  ${

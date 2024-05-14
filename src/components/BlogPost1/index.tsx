@@ -49,7 +49,7 @@ const BlogPost1 = ({
           >
             Next.js 14 introduces several powerful features that can
             significantly enhance your development workflow. In this blog post,
-            I'll share my experiences and solutions for handling search
+            I will share my experiences and solutions for handling search
             parameters, dynamic routing with params, server components, and
             implementing pagination, along with filters.
           </p>
@@ -171,7 +171,7 @@ const BlogPost1 = ({
             <strong>Problem:</strong> Maintaining state and parameters across
             page navigations, especially with filters and pagination.
             <br />
-            <strong>Solution:</strong> Utilizing Next.js's routing capabilities,
+            <strong>Solution:</strong> Utilizing Next.jss routing capabilities,
             I passed parameters through the URL, ensuring smooth navigation and
             state persistence.
           </p>
@@ -181,7 +181,7 @@ const BlogPost1 = ({
             }`}
           >
             <FaTerminal className="inline mr-2 text-orange-500" size={18} />
-            <strong>Example:</strong> Using Next.js's router.push to navigate
+            <strong>Example:</strong> Using Next.jss router.push to navigate
             between pages with the current parameters intact.
           </div>
           <h2
@@ -225,8 +225,8 @@ const BlogPost1 = ({
             search params, and server-side pagination. These features, when used
             effectively, can greatly enhance the performance and user experience
             of your application. By addressing common challenges and leveraging
-            Next.js's robust capabilities, you can build dynamic, responsive,
-            and efficient web applications with ease.
+            Next.jss robust capabilities, you can build dynamic, responsive, and
+            efficient web applications with ease.
           </p>
         </div>
       </div>
