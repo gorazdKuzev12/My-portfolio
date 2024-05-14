@@ -77,90 +77,23 @@ const Blog: React.FC<Props> = ({ theme, toggleTheme }) => {
   const posts = [
     {
       id: 1,
-      image: "./images/post1.jpg",
+      image: "./images/next.jpg",
       date: "12 July 2023",
-      title: "Blog Post 1",
-      content: {
-        subtitle:
-          "Installation, PGPASSWORD Solutions, and PgAdmin Introduction",
-        sections: [
-          {
-            title: "Installing PostgreSQL",
-            content:
-              "To embark on your journey with PostgreSQL: Download the PostgreSQL installer from the official website, suitable for your operating system. Run the installer, selecting the default components, including the PostgreSQL Server and PgAdmin. Set a secure password for the 'postgres' user; this is crucial for future database operations.",
-          },
-          {
-            title: "Copying the Main Database",
-            content:
-              "Post-installation, creating a database backup is a wise step. Utilize the pg_dump tool, bundled with PostgreSQL, with the command: pg_dump -h localhost -U your_username your_database_name > backup.sql.",
-          },
-          {
-            title: "Additional Section Title",
-            content: "Content for the additional section.",
-          },
-          // Add more sections as needed
-        ],
-        conclusion:
-          "PostgreSQL offers a comprehensive database system, and while initial setup on Windows might present challenges, the solutions are straightforward. With pg_dump for backups and PgAdmin for management, your database journey is well-equipped.",
-      },
+      title:
+        "Navigating and Paginating with Next.js 14: Handling Search Params, Params, and Server Components",
     },
     {
       id: 2,
-      image: "./images/post2.jpg",
+      image: "./images/nextjs1.png",
       date: "15 July 2023",
-      title: "Blog Post 2",
-      content: {
-        subtitle:
-          "Installation, PGPASSWORD Solutions, and PgAdmin Introduction",
-        sections: [
-          {
-            title: "Installing PostgreSQL",
-            content:
-              "To embark on your journey with PostgreSQL: Download the PostgreSQL installer from the official website, suitable for your operating system. Run the installer, selecting the default components, including the PostgreSQL Server and PgAdmin. Set a secure password for the 'postgres' user; this is crucial for future database operations.",
-          },
-          {
-            title: "Copying the Main Database",
-            content:
-              "Post-installation, creating a database backup is a wise step. Utilize the pg_dump tool, bundled with PostgreSQL, with the command: pg_dump -h localhost -U your_username your_database_name > backup.sql.",
-          },
-          {
-            title: "Additional Section Title",
-            content: "Content for the additional section.",
-          },
-          // Add more sections as needed
-        ],
-        conclusion:
-          "PostgreSQL offers a comprehensive database system, and while initial setup on Windows might present challenges, the solutions are straightforward. With pg_dump for backups and PgAdmin for management, your database journey is well-equipped.",
-      },
+      title: "Handling Localization and Dynamic Pathnames in Next.js 14",
     },
     {
       id: 3,
-      image: "./images/post3.jpg",
+      image: "./images/postgres-logo.png",
       date: "20 July 2023",
-      title: "Blog Post 3",
-      content: {
-        subtitle:
-          "Installation, PGPASSWORD Solutions, and PgAdmin Introduction",
-        sections: [
-          {
-            title: "Installing PostgreSQL",
-            content:
-              "To embark on your journey with PostgreSQL: Download the PostgreSQL installer from the official website, suitable for your operating system. Run the installer, selecting the default components, including the PostgreSQL Server and PgAdmin. Set a secure password for the 'postgres' user; this is crucial for future database operations.",
-          },
-          {
-            title: "Copying the Main Database",
-            content:
-              "Post-installation, creating a database backup is a wise step. Utilize the pg_dump tool, bundled with PostgreSQL, with the command: pg_dump -h localhost -U your_username your_database_name > backup.sql.",
-          },
-          {
-            title: "Additional Section Title",
-            content: "Content for the additional section.",
-          },
-          // Add more sections as needed
-        ],
-        conclusion:
-          "PostgreSQL offers a comprehensive database system, and while initial setup on Windows might present challenges, the solutions are straightforward. With pg_dump for backups and PgAdmin for management, your database journey is well-equipped.",
-      },
+      title:
+        "  Mastering PostgreSQL: A Personal Journey through Installation, Overcoming PGPASSWORD Challenges, and Starting with PgAdmin",
     },
   ];
   const handleBlogClick = (post: any) => {
@@ -172,7 +105,7 @@ const Blog: React.FC<Props> = ({ theme, toggleTheme }) => {
     switch (selectedBlog) {
       case 1:
         return (
-          <BlogPost3
+          <BlogPost1
             onHide={() => {
               setShowSingleBlog(false);
               setSelectedBlog(0);
@@ -182,7 +115,7 @@ const Blog: React.FC<Props> = ({ theme, toggleTheme }) => {
         );
       case 2:
         return (
-          <BlogPost3
+          <BlogPost2
             onHide={() => {
               setShowSingleBlog(false);
               setSelectedBlog(0);
