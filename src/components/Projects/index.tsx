@@ -1,6 +1,9 @@
+// Projects.tsx
 import React, { useEffect, useRef, useState } from "react";
+import styled, { css } from "styled-components";
 import Cube from "../Cube";
 import Project from "../Project";
+
 interface ProjectData {
   id: number;
   title: string;
@@ -13,31 +16,202 @@ type Props = {
   toggleTheme: () => void;
 };
 
+// ==================== Styled Components ====================
+
+// Container for the entire Projects section
+const ProjectsContainer = styled.div<{ themeMode: "dark" | "light" }>`
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 1rem;
+  background-color: ${({ themeMode }) =>
+    themeMode === "dark" ? "#1F1F1F" : "#FFFFFF"};
+
+  @media (min-width: 640px) {
+    padding: 2rem;
+  }
+`;
+
+// Absolute container in the top-right corner for the cubes
+const CubeContainer = styled.div`
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  /* Give some space between cubes when stacked vertically, 
+     then switch to horizontal at >= 640px */
+  & > *:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    & > *:not(:last-child) {
+      margin-right: 0.5rem;
+      margin-bottom: 0;
+    }
+  }
+`;
+
+// Title for the "PROJECTS" heading
+const Title = styled.h1`
+  margin-top: 2.5rem;
+  font-size: 2rem;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #FF4500; /* Light orange */
+
+  @media (min-width: 640px) {
+    font-size: 2.5rem;
+  }
+`;
+
+// Container that holds all project items (horizontal scrolling on desktop)
+const ProjectsScrollWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem;
+  overflow: hidden;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    padding: 0 2rem;
+    overflow-x: auto;
+  }
+`;
+
+// Each project item container (image + overlay)
+const ProjectItem = styled.div`
+  position: relative;
+  cursor: pointer;
+  min-width: 70vw; /* for smaller screens; adjust as you like */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-height: 120px;
+  margin-bottom: 1rem;
+
+  @media (min-width: 640px) {
+    min-width: 25vw; /* mimic "min-w-[25vw]" from Tailwind */
+    margin-right: 0.5rem;
+    margin-bottom: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  /* On hover, blur the image (we do the transition inside ProjectImage) */
+  &:hover img {
+    filter: blur(4px);
+    transform: scale(1.05);
+  }
+
+  &:hover .overlay {
+    opacity: 1;
+    /* background-color: rgba(0, 0, 0, 0.05); */
+  }
+`;
+
+// The project image
+const ProjectImage = styled.img`
+  width: 600px;
+  height: 60%;
+  object-fit: cover;
+  margin:30px;
+  transition: all 0.5s ease-in-out;
+`;
+
+// Overlay (title + date)
+const Overlay = styled.div`
+  position: absolute;
+  inset: 0; /* top:0, right:0, bottom:0, left:0 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0);
+  transition: opacity 0.5s ease-in-out;
+`;
+
+// Container for text inside the overlay
+const OverlayContent = styled.div`
+  text-align: center;
+  color: white;
+  transition: transform 0.5s ease-in-out;
+`;
+
+// Overlay Title
+const OverlayTitle = styled.h2`
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+
+  @media (min-width: 640px) {
+    font-size: 1.3rem;
+  }
+`;
+
+// Overlay Date
+const OverlayDate = styled.p`
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #FF4500;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+
+  @media (min-width: 640px) {
+    font-size: 1.125rem;
+  }
+`;
+
 const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
   const projectData: ProjectData[] = [
     {
       id: 1,
-      title: "Nonstop Dogwear",
-      date: "2022-07-12",
-      technologies: ["NextJs", "Prisma", "GraphQL"],
+      title: "Non-stop dogwear (Internal)",
+      date: "01.04.2020 - 01.01.2025",
+      technologies: [
+        "NextJs",
+        "Postgresql",
+        "Prisma",
+        "Apollo Client",
+        "Style Components",
+        "TypeScript",
+        "GraphQL",
+      ],
     },
     {
       id: 2,
-      title: "Recepie WebSite",
-      date: "2022-08-15",
-      technologies: ["React", "Redux", "Firebase"],
+      title: "Non-stop dogwear (Official website)",
+      date: "01.04.2022 - 01.01.2025",
+      technologies: [
+        "NextJs",
+        "Gatsby",
+        "Style Components",
+        "TypeScript",
+        "GraphQL",
+      ],
     },
     {
       id: 3,
-      title: "Ida Dashboard",
-      date: "2022-09-01",
+      title: "Villa Smaragdis",
+      date: "05.05.2024 - 08.08.2024",
       technologies: ["Vue.js", "Vuetify", "Firestore"],
     },
     {
       id: 4,
-      title: "Ida Store",
-      date: "2022-09-01",
-      technologies: ["Angular", "RxJs", "NGRX"],
+      title: "Simple Recepies",
+      date: "01.02.2020 - 20.06.2020",
+      technologies: ["Gatsby", "Firebase"],
     },
   ];
 
@@ -45,27 +219,26 @@ const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
   const [isDragging, setIsDragging] = useState(false);
   const [startPosition, setStartPosition] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const [selectedProject, setSelectedProject] = useState<null | {
-    id: number;
-    title: string;
-    date: string;
-    technologies: string[];
-  }>(null);
+  const [selectedProject, setSelectedProject] = useState<null | ProjectData>(
+    null
+  );
   const [showSelectedProject, setShowSelectedProject] = useState(false);
-  const onMouseDown = (e: any) => {
+
+  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!scrollRef.current) return;
     setIsDragging(true);
-    setStartPosition(e.pageX - scrollRef.current?.offsetLeft!);
-    setScrollLeft(scrollRef.current?.scrollLeft!);
+    setStartPosition(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
   };
 
-  const onMouseMove = (e: any) => {
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (window.innerWidth > 768) {
-      if (!isDragging) return;
+      if (!isDragging || !scrollRef.current) return;
       e.preventDefault();
-      const x = e.pageX - scrollRef.current?.offsetLeft!;
+      const x = e.pageX - scrollRef.current.offsetLeft;
       const SCROLL_SPEED = 2;
       const walk = (x - startPosition) * SCROLL_SPEED;
-      scrollRef.current!.scrollLeft = scrollLeft - walk;
+      scrollRef.current.scrollLeft = scrollLeft - walk;
     }
   };
 
@@ -75,9 +248,12 @@ const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
 
   useEffect(() => {
     if (scrollRef.current) {
+      // Scroll to the middle of the container initially (optional)
       scrollRef.current.scrollLeft = scrollRef.current.scrollWidth / 4;
     }
   }, []);
+
+  // Sample images for the Project component
   const sampleImages = [
     "./images/ida1.jpg",
     "./images/ida2.jpg",
@@ -87,85 +263,59 @@ const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
     "./images/ida6.jpg",
     "./images/ida7.jpg",
     "./images/ida8.jpg",
-
-    // ... more image URLs
   ];
 
   return (
-    <div
-      className={`w-full  min-h-screen flex flex-col p-4 sm:p-8 relative ${
-        theme === "dark" ? "bg-gray-dark1" : "bg-white-original"
-      }`}
-      id="projects-section"
-    >
-      <div className="absolute top-6 right-8 flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
+    <ProjectsContainer themeMode={theme} id="projects-section">
+      {/* Cube decorations */}
+      <CubeContainer>
         {[...Array(5)].map((_, index) => (
           <Cube key={index} isSelected={index === 2} />
         ))}
-      </div>
+      </CubeContainer>
 
-      <div className="text-center">
-        <div className="relative">
-          <h1 className="text-2xl mt-10 sm:text-4xl text-light-orange  font-custom tracking-wider uppercase">
-            {"PROJECTS"}
-          </h1>
-        </div>
-        <div
-          ref={scrollRef}
-          className="flex flex-col sm:flex-row flex-wrap md:flex-nowrap mt-20 sm:mt-18 px-4 sm:px-8 overflow-hidden sm:overflow-x-scroll scrollbar-thin scrollbar-thumb-red-500 scrollbar-track-gray-800 space-y-4 sm:space-x-1 md:space-y-0"
-          onMouseDown={onMouseDown}
-          onMouseLeave={onMouseUp}
-          onMouseUp={onMouseUp}
-          onMouseMove={onMouseMove}
-        >
-          {projectData.map(({ id, title, date, technologies }) => (
-            <div
-              className=" relative group cursor-pointer min-w-[25vw] flex-shrink-0 flex items-center justify-center"
-              key={id}
-              style={{ minHeight: "120px" }}
-              onClick={() => {
-                setSelectedProject({ id, title, date, technologies }),
-                  setShowSelectedProject(true); // This should be the correct function
-              }}
-            >
-              <img
-                src={`./images/project${id}.jpg`}
-                alt={title}
-                className="w-full sm:w-3/4 h-auto sm:h-3/4 object-cover transition-all duration-500 ease-in-out transform group-hover:blur"
-              />
-              <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out bg-black bg-opacity-0 opacity-0 group-hover:opacity-100 group-hover:bg-opacity-70">
-                <div className="text-center space-y-4">
-                  <h2
-                    className="text-white-original text-xl sm:text-4xl font-bold uppercase group-hover:scale-110 transform transition-transform duration-500 tracking-widest"
-                    style={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.3)" }}
-                  >
-                    {title}
-                  </h2>
-                  <p
-                    className="text-light-orange text-sm sm:text-lg font-semibold group-hover:translate-y-2 transform transition-transform duration-500 tracking-widest"
-                    style={{ textShadow: "1px 1px 1px rgba(0, 0, 0, 0.3)" }}
-                  >
-                    {date}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* Title */}
+      <Title>PROJECTS</Title>
 
-        {/* Show the selected project */}
-        {showSelectedProject && selectedProject && (
-          <Project
-            title={selectedProject.title}
-            date={selectedProject.date}
-            technologies={selectedProject.technologies}
-            setShowSelectedProject={setShowSelectedProject}
-            setSelectedProject={setSelectedProject}
-            images={sampleImages}
-          />
-        )}
-      </div>
-    </div>
+      {/* Scrollable projects container */}
+      <ProjectsScrollWrapper
+        ref={scrollRef}
+        onMouseDown={onMouseDown}
+        onMouseLeave={onMouseUp}
+        onMouseUp={onMouseUp}
+        onMouseMove={onMouseMove}
+      >
+        {projectData.map(({ id, title, date, technologies }) => (
+          <ProjectItem
+            key={id}
+            onClick={() => {
+              setSelectedProject({ id, title, date, technologies });
+              setShowSelectedProject(true);
+            }}
+          >
+            <ProjectImage src={`./images/project${id}.jpg`} alt={title} />
+            <Overlay className="overlay">
+              <OverlayContent>
+                <OverlayTitle>{title}</OverlayTitle>
+                <OverlayDate>{date}</OverlayDate>
+              </OverlayContent>
+            </Overlay>
+          </ProjectItem>
+        ))}
+      </ProjectsScrollWrapper>
+
+      {/* Selected project modal */}
+      {showSelectedProject && selectedProject && (
+        <Project
+          title={selectedProject.title}
+          date={selectedProject.date}
+          technologies={selectedProject.technologies}
+          setShowSelectedProject={setShowSelectedProject}
+          setSelectedProject={setSelectedProject}
+          images={sampleImages}
+        />
+      )}
+    </ProjectsContainer>
   );
 };
 

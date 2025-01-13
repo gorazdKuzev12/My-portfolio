@@ -1,12 +1,135 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
+import styled from "styled-components";
 import Cube from "../Cube";
 import useScrollPosition from "../ScrollHandler";
+
 type Props = {
   theme: "dark" | "light";
   toggleTheme: () => void;
 };
+
+const Container = styled.div<{ theme: "dark" | "light" }>`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: ${props => props.theme === "dark" ? "#1F1F1F" : "#ffffff"};
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`;
+
+const ContentSection = styled.div<{ theme: "dark" | "light" }>`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  background-color: ${props => props.theme === "dark" ? "#1F1F1F" : "#ffffff"};
+  color: #d1d1d1;
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+`;
+
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+`;
+
+const BorderedContent = styled.div`
+  border-left: 4px solid #FF4500;
+  padding-left: 1rem;
+`;
+
+const Title = styled.h1<{ theme: "dark" | "light" }>`
+  font-size: 3rem;
+  font-weight: 700;
+  color: ${props => props.theme === "dark" ? "#d1d1d1" : "#333333"};
+
+  @media (min-width: 768px) {
+    font-size: 4.5rem;
+  }
+`;
+
+const SubTitle = styled.h2`
+  font-size: 2.25rem;
+  font-weight: 500;
+  margin-bottom: 1.25rem;
+
+  @media (min-width: 768px) {
+    font-size: 3rem;
+  }
+`;
+
+const AnimatedLetter = styled.span`
+  display: inline-block;
+  @keyframes fadeInOut {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  animation: fadeInOut 3s ease-in-out;
+`;
+
+const Button = styled.a`
+  background-color: transparent;
+  border: 2px solid #FF4500;
+  color: #FF4500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  margin: 1.25rem;
+  text-decoration: none;
+`;
+
+const ImageSection = styled.div<{ theme: "dark" | "light" }>`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+  overflow: hidden;
+  background-color: ${props => props.theme === "dark" ? "#1F1F1F" : "#ffffff"};
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
+`;
+
+const ImageContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+
+const StyledMotionImg = styled(motion.img)`
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  margin-top: 1.25rem;
+  z-index: 10;
+`;
+
+const CubeContainer = styled.div`
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+`;
 
 const HomePage: React.FC<Props> = ({ theme, toggleTheme }) => {
   const phrases = [
@@ -22,10 +145,7 @@ const HomePage: React.FC<Props> = ({ theme, toggleTheme }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentPhraseIndex((prevIndex) => {
-        const nextIndex = (prevIndex + 1) % phrases.length;
-        return nextIndex;
-      });
+      setCurrentPhraseIndex((prevIndex) => (prevIndex + 1) % phrases.length);
     }, 2000);
 
     return () => clearInterval(interval);
@@ -46,74 +166,49 @@ const HomePage: React.FC<Props> = ({ theme, toggleTheme }) => {
 
     return () => clearTimeout(timeout);
   }, [currentPhraseIndex]);
+
   const scrollY = useScrollPosition();
 
   return (
-    <div
-      className={`flex flex-col md:flex-row relative min-h-screen min-w-screen  ${
-        theme === "dark" ? "bg-gray-dark1" : "bg-white-original"
-      }`}
-    >
-      <div
-        className={`w-full md:w-2/4  flex flex-col justify-center items-start text-gray-light p-8 space-y-8  ${
-          theme === "dark" ? "bg-gray-dark1" : "bg-white-original"
-        }`}
-      >
-        <div className="flex items-start space-x-4">
+    <Container theme={theme}>
+      <ContentSection theme={theme}>
+        <TitleContainer>
           <div>
-            <div className="border-l-4 border-light-orange pl-4">
-              <h1
-                className={`text-5xl md:text-7xl font-bold font-custom ${
-                  theme === "dark" ? "text-light-gray" : "text-dark-gray"
-                }`}
-              >
-                GORAZD KUZEV
-              </h1>
-
-              <h2 className="text-4xl md:text-5xl font-medium font-custom mb-5">
-                {displayedPhrase.split("").map((letter: any, index: any) => (
-                  <span
+            <BorderedContent>
+              <Title theme={theme}>GORAZD KUZEV</Title>
+              <SubTitle>
+                {displayedPhrase.split("").map((letter, index) => (
+                  <AnimatedLetter
                     key={index}
-                    className="inline-block animate-fade-in-out"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     {letter}
-                  </span>
+                  </AnimatedLetter>
                 ))}
-              </h2>
-            </div>
-
-            <a
-              href="#"
-              className="bg-transparent border-light-orange border-2 text-light-orange px-4 py-2 rounded font-custom m-5"
-            >
-              About me
-            </a>
+              </SubTitle>
+            </BorderedContent>
+            <Button href="#">About me</Button>
           </div>
-        </div>
-      </div>
+        </TitleContainer>
+      </ContentSection>
 
-      <div
-        className={`"w-full md:w-2/4 flex flex-col justify-center items-start p-8 overflow-hidden ${
-          theme === "dark" ? "bg-gray-dark1 " : "bg-white-original"
-        }`}
-      >
-        <div className="w-full h-full relative">
-          <motion.img
+      <ImageSection theme={theme}>
+        <ImageContainer>
+          <StyledMotionImg
             src="./images/profile2.jpg"
             alt="Description"
-            className="object-cover h-full w-full mt-5 z-10"
             style={{ translateY: scrollY / 2 }}
           />
-        </div>
-      </div>
+        </ImageContainer>
+      </ImageSection>
 
-      <div className="absolute top-6 right-8 flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
+      <CubeContainer>
         {[...Array(5)].map((_, index) => (
           <Cube key={index} isSelected={index === 0} />
         ))}
-      </div>
-    </div>
+      </CubeContainer>
+    </Container>
   );
 };
+
 export default HomePage;

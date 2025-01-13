@@ -1,103 +1,290 @@
-import React from "react";
+import React, { useState } from "react";
+import styled, { keyframes } from "styled-components";
 import Cube from "../Cube";
+
 type Props = {
   theme: "dark" | "light";
   toggleTheme: () => void;
 };
-const AboutMe: React.FC<Props> = ({ theme, toggleTheme }) => {
-  const skills = [
-    { name: "HTML5", percent: 100 },
-    { name: "CSS3 - Tailwind - Style components", percent: 90 },
-    { name: "Next.js", percent: 100 },
-    { name: "React", percent: 90 },
-    { name: "TypeScript.js", percent: 100 },
-    { name: "JavaScript", percent: 100 },
-    { name: "Node.js", percent: 80 },
-    { name: "GraphQL", percent: 70 },
-    { name: "Prisma", percent: 90 },
-    { name: "MySql", percent: 80 },
-  ];
+
+const skills = [
+  { name: "HTML5", percent: 100 },
+  { name: "CSS3 - Tailwind - Style components", percent: 90 },
+  { name: "Next.js", percent: 100 },
+  { name: "React", percent: 90 },
+  { name: "TypeScript.js", percent: 100 },
+  { name: "JavaScript", percent: 100 },
+  { name: "Node.js", percent: 80 },
+  { name: "GraphQL", percent: 70 },
+  { name: "Prisma", percent: 90 },
+  { name: "MySql", percent: 80 },
+];
+
+// Animations
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const fillProgress = keyframes`
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+`;
+
+// Styled components
+const AboutSection = styled.div<{ themeMode: "dark" | "light" }>`
+  width: 100%;
+  min-height: 100vh;
+  padding: 4rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  background-color: ${({ themeMode }) =>
+    themeMode === "dark" ? "#1A1A1A" : "#F5F5F5"};
+  animation: ${fadeIn} 0.8s ease-out;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+`;
+
+const TextSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  animation: ${fadeIn} 0.8s ease-out;
+`;
+
+const Heading = styled.h1<{ themeMode: "dark" | "light" }>`
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: ${({ themeMode }) => (themeMode === "dark" ? "#ee5b21" : "#FF4500")};
+  text-transform: uppercase;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background-color: ${({ themeMode }) => (themeMode === "dark" ? "#ee5b21" : "#FF4500")};
+    transition: width 0.3s ease;
+  }
+  
+  &:hover::after {
+    width: 100px;
+  }
+`;
+
+const Paragraph = styled.p<{ themeMode: "dark" | "light" }>`
+  font-size: 1.1rem;
+  color: ${({ themeMode }) => (themeMode === "dark" ? "#E5E5E5" : "#4A4A4A")};
+  text-align: justify;
+  margin-bottom: 2rem;
+  position: relative;
+`;
+
+const SkillsSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  animation: ${fadeIn} 0.8s ease-out;
+`;
+
+const SkillsHeading = styled.h2<{ themeMode: "dark" | "light" }>`
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: ${({ themeMode }) => (themeMode === "dark" ? "#ee5b21" : "#ea7734")};
+  text-transform: uppercase;
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 2px;
+    background-color: ${({ themeMode }) =>
+      themeMode === "dark" ? "#E5E5E5" : "#4A4A4A"};
+    margin: 0.5rem 0;
+    transition: width 0.3s ease;
+  }
+
+  &:hover::before {
+    width: 5rem;
+  }
+`;
+
+const SkillsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const SkillCard = styled.div<{ themeMode: "dark" | "light" }>`
+  background-color: ${({ themeMode }) =>
+    themeMode === "dark" ? "#2C2C2C" : "#FFFFFF"};
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+  }
+`;
+
+const SkillHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+`;
+
+const SkillName = styled.h3<{ themeMode: "dark" | "light" }>`
+  font-weight: bold;
+  color: ${({ themeMode }) => (themeMode === "dark" ? "#E5E5E5" : "#4A4A4A")};
+  font-size: 1.1rem;
+`;
+
+const SkillPercent = styled.span<{ themeMode: "dark" | "light" }>`
+  font-weight: bold;
+  color: ${({ themeMode }) => (themeMode === "dark" ? "#ee5b21" : "#FF4500")};
+`;
+const CubeContainer = styled.div`
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+
+  /* Give some space between cubes when stacked vertically, 
+     then switch to horizontal at >= 640px */
+  & > *:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    & > *:not(:last-child) {
+      margin-right: 0.5rem;
+      margin-bottom: 0;
+    }
+  }
+`;
+
+
+const ProgressBar = styled.div`
+  width: 100%;
+  background-color: ${({ theme }) =>
+    theme === "dark" ? "#404040" : "#E5E5E5"};
+  border-radius: 0.5rem;
+  height: 10px;
+  overflow: hidden;
+  position: relative;
+`;
+
+const ProgressFill = styled.div<{ percent: number; isVisible: boolean }>`
+  background: linear-gradient(90deg, #f47520 0%, #ee5b21 100%);
+  border-radius: 0.5rem;
+  height: 100%;
+  width: ${({ percent }) => `${percent}%`};
+  transform-origin: left;
+  transition: transform 1s ease-out;
+  transform: scaleX(${({ isVisible }) => (isVisible ? 1 : 0)});
+`;
+
+// Component
+const AboutMe: React.FC<Props> = ({ theme }) => {
+  const [visibleSkills, setVisibleSkills] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSkills((prev) => ({
+              ...prev,
+              [entry.target.id]: true,
+            }));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const skillElements = document.querySelectorAll("[data-skill]");
+    skillElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div
-      className={`w-full  min-h-screen p-4 sm:p-8 flex flex-col sm:flex-row ${
-        theme === "dark" ? "bg-gray-dark" : "bg-gray-light"
-      }`}
-      id="about-section"
-    >
-      <div className="text-center flex-grow">
-        <div className="relative">
-          <h1 className="text-2xl mt-10 sm:text-4xl text-light-orange  font-custom tracking-wider uppercase">
-            {"ABOUT ME"}
-          </h1>
-        </div>
-        <div className="relative mt-8">
-          <p
-            className={`mt-4 px-4 sm:px-8 py-10 text-sm sm:text-base ${
-              theme === "dark" ? "text-gray-light" : "text-dark-gray"
-            }`}
-          >
-            I am a dedicated Fullstack Developer with 3 years of experience. I
-            have a degree in Computer Science from the University of Maribor. I
-            have honed my skills in JavaScript, ReactJS, Next.js, and Gatsby.js,
-            and I am proficient in leveraging these technologies to build
-            impressive, modern web designs. I also have a deep understanding of
-            UI/UX design principles. My experience extends to using TailwindCSS
-            frameworks to enable efficient and responsive web development. In
-            the realm of Back-end Development, I have built scalable solutions
-            using Node.js and effectively handled data through GraphQL and
-            Prisma.
-          </p>
-          <div className="relative mt-8">
-            <div className="w-8 mx-auto h-1 bg-gray-light mb-1"></div>
-            <h2
-              className={`text-2xl sm:text-3xl  font-custom  my-3  tracking-wider ${
-                theme === "dark" ? "text-gray-light" : "text-dark-gray"
-              }`}
+    <AboutSection themeMode={theme}>
+
+      <TextSection>
+        <Heading themeMode={theme}>About Me</Heading>
+        <Paragraph themeMode={theme}>
+          I am a dedicated Fullstack Developer with 3 years of experience. I
+          have a degree in Computer Science from the University of Maribor. I
+          have honed my skills in JavaScript, ReactJS, Next.js, and Gatsby.js,
+          and I am proficient in leveraging these technologies to build
+          impressive, modern web designs. I also have a deep understanding of
+          UI/UX design principles. My experience extends to using TailwindCSS
+          frameworks to enable efficient and responsive web development. In the
+          realm of Back-end Development, I have built scalable solutions using
+          Node.js and effectively handled data through GraphQL and Prisma.
+        </Paragraph>
+      </TextSection>
+      <SkillsSection>
+        <SkillsHeading themeMode={theme}>Skills</SkillsHeading>
+        <SkillsContainer>
+          {skills.map((skill, index) => (
+            <SkillCard
+              themeMode={theme}
+              key={index}
+              data-skill
+              id={`skill-${index}`}
             >
-              SKILLS
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 px-4 sm:px-8">
-            {skills.map((skill, index) => (
-              <div
-                key={index}
-                className={`p-4 rounded ${
-                  theme === "dark" ? "bg-gray-dark1 " : "bg-white-original"
-                }`}
-              >
-                <div className="flex justify-between">
-                  <h3
-                    className={`font-bold font-custom  ${
-                      theme === "dark" ? "text-gray-light" : "text-dark-gray"
-                    }`}
-                  >
-                    {skill.name}
-                  </h3>
-                  <span
-                    className={`font-bold font-custom  ${
-                      theme === "dark" ? "text-gray-light" : "text-dark-gray"
-                    }`}
-                  >
-                    {skill.percent}%
-                  </span>
-                </div>
-                <div className="w-full bg-gray-light rounded h-2 mt-2">
-                  <div
-                    className="bg-light-orange rounded h-2"
-                    style={{ width: `${skill.percent}%` }}
-                  ></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="absolute top-30 right-8 flex flex-col sm:flex-row space-y-2 sm:space-x-2 sm:space-y-0">
-        {[...Array(5)].map((_, index) => (
-          <Cube key={index} isSelected={index === 1} />
-        ))}
-      </div>
-    </div>
+              <SkillHeader>
+                <SkillName themeMode={theme}>{skill.name}</SkillName>
+                <SkillPercent themeMode={theme}>
+                  {skill.percent}%
+                </SkillPercent>
+              </SkillHeader>
+              <ProgressBar theme={theme}>
+                <ProgressFill
+                  percent={skill.percent}
+                  isVisible={visibleSkills[`skill-${index}`]}
+                />
+              </ProgressBar>
+            </SkillCard>
+          ))}
+        </SkillsContainer>
+      </SkillsSection>
+    </AboutSection>
   );
 };
 

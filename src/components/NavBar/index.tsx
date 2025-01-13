@@ -1,9 +1,90 @@
-import React, { useEffect, useState } from "react";
-import { IoMdMoon, IoMdSunny } from "react-icons/io";
+import React from 'react';
+import styled from 'styled-components';
+import { Moon, Sun } from 'lucide-react';
+
 type Props = {
   theme: "dark" | "light";
   toggleTheme: () => void;
 };
+
+// Styled Components
+const NavContainer = styled.nav<{ $theme: "dark" | "light" }>`
+  width: 100%;
+  height: 110px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: ${props => props.$theme === "dark" ? "#242424" : "#ffffff"};
+`;
+
+const NavContent = styled.div`
+  max-width: 1650px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  
+  @media (min-width: 640px) {
+    padding: 0 1.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    padding: 0 2rem;
+  }
+`;
+
+const FlexContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 7rem;
+`;
+
+const Logo = styled.h1`
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+`;
+
+const LogoSpan = styled.span`
+  color: #FF4500; // Orange color
+`;
+
+const LogoText = styled.span<{ $theme: "dark" | "light" }>`
+  color: ${props => props.$theme === "dark" ? "#ffffff" : "#111827"};
+`;
+
+const NavItems = styled.div`
+  display: none;
+  align-items: center;
+  gap: 1rem;
+  
+  @media (min-width: 768px) {
+    display: flex;
+  }
+`;
+
+const NavButton = styled.button<{ $theme: "dark" | "light" }>`
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  font-size: 1.1rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: ${props => props.$theme === "dark" ? "#e5e7eb" : "#374151"};
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: ${props => props.$theme === "dark" ? "#ffffff" : "#111827"};
+  }
+`;
+
+const ThemeButton = styled.button`
+  padding: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #f97316;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
   const scrollToSection = (sectionId: string) => {
@@ -11,69 +92,47 @@ const NavBar: React.FC<Props> = ({ theme, toggleTheme }) => {
     sectionElement?.scrollIntoView({ behavior: "smooth" });
   };
 
-  return (
-    <div
-      className={`w-full  shadow-lg flex flex-col md:flex-row justify-between items-center text-gray-light p-4 md:p-8 ${
-        theme === "dark" ? "bg-gray-dark" : "bg-gray-menu"
-      }`}
-    >
-      <div className="text-2xl md:text-3xl font-bold ml-4 font-custom tracking-wide text-center">
-        <span className="text-light-orange">./QZ</span>
-        <span
-          className={`${
-            theme === "dark" ? "text-gray-light" : "text-white-original"
-          }`}
-        >
-          {" "}
-          code
-        </span>
-      </div>
+  const navItems = [
+    { id: "about-section", label: "About me" },
+    { id: "projects-section", label: "Projects" },
+    { id: "blog-section", label: "Blog" },
+    { id: "contact-section", label: "Contact" }
+  ];
 
-      <div className="flex flex-row space-x-0 md:space-x-8 mt-4 md:mt-0">
-        <button
-          onClick={() => scrollToSection("about-section")}
-          className={`p-3  font-medium font-custom ${
-            theme === "dark" ? "text-light-gray" : "text-white-original"
-          }`}
-        >
-          About me
-        </button>
-        <button
-          className={`p-3  font-medium font-custom ${
-            theme === "dark" ? "text-light-gray" : "text-white-original"
-          }`}
-          onClick={() => scrollToSection("projects-section")}
-        >
-          Projects
-        </button>
-        <button
-          onClick={() => scrollToSection("blog-section")}
-          className={`p-3  font-medium font-custom ${
-            theme === "dark" ? "text-light-gray" : "text-white-original"
-          }`}
-        >
-          Blog
-        </button>
-        <button
-          onClick={() => scrollToSection("contact-section")}
-          className={`p-3  font-medium font-custom ${
-            theme === "dark" ? "text-light-gray" : "text-white-original"
-          }`}
-        >
-          Contact
-        </button>
-        <button
-          onClick={toggleTheme}
-          className={`p-3 ${
-            theme === "dark"
-              ? "text-light-orange font-medium font-custom"
-              : "text-light-orange font-medium font-custom"
-          }`}
-        >
-          {theme === "dark" ? <IoMdMoon size={24} /> : <IoMdSunny size={24} />}
-        </button>
-      </div>
-    </div>
+  return (
+    <NavContainer $theme={theme}>
+      <NavContent>
+        <FlexContainer>
+          {/* Logo */}
+          <Logo>
+            <LogoSpan>./QZ</LogoSpan>
+            <LogoText $theme={theme}> code</LogoText>
+          </Logo>
+
+          {/* Navigation Items */}
+          <NavItems>
+            {navItems.map(({ id, label }) => (
+              <NavButton
+                key={id}
+                onClick={() => scrollToSection(id)}
+                $theme={theme}
+              >
+                {label}
+              </NavButton>
+            ))}
+            
+            {/* Theme Toggle */}
+            <ThemeButton onClick={toggleTheme}>
+              {theme === "dark" ? (
+                <Moon size={20} />
+              ) : (
+                <Sun size={20} />
+              )}
+            </ThemeButton>
+          </NavItems>
+        </FlexContainer>
+      </NavContent>
+    </NavContainer>
   );
 };
 

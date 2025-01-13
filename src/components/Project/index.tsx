@@ -1,32 +1,366 @@
-import React from "react";
+import React, { useState } from "react";
+import styled, { keyframes } from "styled-components";
 import { AiOutlineClose, AiFillCheckCircle } from "react-icons/ai";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { IoArrowForward } from "react-icons/io5";
 
-type ProjectProps = {
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+const slideIn = keyframes`
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+`;
+
+const Overlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  animation: ${fadeIn} 0.3s ease-out;
+`;
+
+const Modal = styled.div`
+  background: linear-gradient(145deg, #2c2c2c, #242424);
+  max-width: 1200px;
+  width: 100%;
+  height: 85vh;
+  display: flex;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  animation: ${slideIn} 0.4s ease-out;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+    max-height: 90vh;
+  }
+`;
+
+const CloseButton = styled(AiOutlineClose)`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #fff;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 69, 0, 0.2);
+    color: #ff4500;
+    transform: rotate(90deg);
+  }
+`;
+
+const LeftSection = styled.div`
+  flex: 1;
+  background: linear-gradient(145deg, #393939, #2d2d2d);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-height: 400px;
+`;
+
+const shine = keyframes`
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+`;
+
+const FlipWrapper = styled.div`
+  perspective: 1500px;
+  width: 500px;
+  height: 380px;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    
+    background-size: 200% 100%;
+    animation: ${shine} 4s linear infinite;
+    pointer-events: none;
+    border-radius: 16px;
+  }
+`;
+
+const flipAnimation = keyframes`
+  0% {
+    transform: rotateY(0);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+`;
+
+const unflipAnimation = keyframes`
+  0% {
+    transform: rotateY(180deg);
+  }
+  100% {
+    transform: rotateY(0);
+  }
+`;
+
+const FlipCard = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: none;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+
+  &.flipping {
+    animation: ${flipAnimation} 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  &.unflipping {
+    animation: ${unflipAnimation} 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+`;
+
+const FlipFace = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+  background: #2c2c2c;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 69, 0, 0.1),
+      transparent,
+      rgba(255, 69, 0, 0.05)
+    );
+    z-index: 1;
+    pointer-events: none;
+  }
+`;
+
+const FlipFront = styled(FlipFace)`
+  transform: rotateY(0);
+`;
+
+const FlipBack = styled(FlipFace)`
+  transform: rotateY(180deg);
+`;
+
+const FlipImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+`;
+
+const NextButton = styled.button`
+  position: absolute;
+  top: 50%;
+  right: -2rem;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  color: #fff;
+  background: linear-gradient(45deg, #ff4500, #ff6b3d);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+
+  &:hover {
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 8px 25px rgba(255, 69, 0, 0.4);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  svg {
+    font-size: 24px;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover:not(:disabled) svg {
+    transform: translateX(3px);
+  }
+`;
+
+const ProgressContainer = styled.div`
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+`;
+
+const ProgressDot = styled.div<{ active: boolean }>`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: ${props => props.active ? '#ff4500' : 'rgba(255, 255, 255, 0.3)'};
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.2);
+    background: ${props => props.active ? '#ff4500' : 'rgba(255, 255, 255, 0.5)'};
+  }
+`;
+
+const RightSection = styled.div`
+  flex: 1;
+  padding: 3rem;
+  background: linear-gradient(170deg, #1e1e1e, #242424);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #e4e4e4;
+`;
+
+const Title = styled.h2`
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(120deg, #ff4500, #ff7844);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.5rem;
+`;
+
+const Paragraph = styled.p`
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  color: #dedede;
+  
+  strong {
+    color: #ff4500;
+    font-weight: 600;
+  }
+`;
+
+const TechList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 2rem 0;
+`;
+
+const TechItem = styled.div`
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.6rem 1.2rem;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  svg {
+    color: #10b981;
+  }
+
+  &:hover {
+    background: rgba(255, 69, 0, 0.1);
+    border-color: rgba(255, 69, 0, 0.3);
+    transform: translateY(-2px);
+  }
+`;
+
+const ViewButton = styled.a`
+  display: inline-block;
+  background: none;
+  border: 1px solid #ff4500;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 0.75rem 1.5rem;
+  text-align: center;
+  transition: background 0.3s ease;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #393939;
+  }
+`;
+
+interface ProjectProps {
   title: string;
-  date: string;
-  technologies: string[];
   images: string[];
-  setSelectedProject: any;
-  setShowSelectedProject: any;
-};
+  technologies: string[];
+  description?: string;
+  features?: string[];
+  projectUrl?: string;
+  setSelectedProject: (project: any) => void;
+  setShowSelectedProject: (show: boolean) => void;
+}
 
 const Project: React.FC<ProjectProps> = ({
   title,
-  date,
-  technologies,
   images,
+  technologies,
+  description = "Using playful and pastel colors for a joyful and intuitive design.",
+  features = ["Interactive 3D product displays", "Easy navigation", "Responsive design"],
+  projectUrl = "https://your-link.com",
   setSelectedProject,
   setShowSelectedProject,
 }) => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isFlipping, setIsFlipping] = useState(false);
+  const [flipDirection, setFlipDirection] = useState<'flipping' | 'unflipping'>('flipping');
+
+  const handleNext = () => {
+    if (!isFlipping) {
+      setIsFlipping(true);
+      setFlipDirection('flipping');
+    }
+  };
+
+  const handleTransitionEnd = () => {
+    if (isFlipping) {
+      if (flipDirection === 'flipping') {
+        setCurrentIndex((prev) => (prev + 1) % images.length);
+        setFlipDirection('unflipping');
+      } else {
+        setIsFlipping(false);
+      }
+    }
   };
 
   const handleClose = () => {
@@ -35,77 +369,71 @@ const Project: React.FC<ProjectProps> = ({
   };
 
   return (
-    <div
-      className="w-full h-screen fixed inset-0 flex items-center justify-center z-50 p-2 md:p-4 lg:p-15 bg-gradient-to-r from-blue-900 to-black bg-opacity-90 backdrop-filter backdrop-blur-xl"
-      onClick={handleClose}
-    >
-      <div
-        className="bg-white text-gray-dark rounded-xl shadow-2xl w-full max-w-6xl transform transition-all duration-700 ease-in-out scale-95 hover:scale-100"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="relative flex flex-col lg:flex-row h-full">
-          <div className="w-full lg:w-1/2 p-4 lg:p-12 bg-gray-dark text-white-original space-y-8">
-            <h2 className="text-2xl md:text-3xl lg:text-5xl font-extrabold text-white-original leading-none border-b-2 border-white-original inline-block pt-2 md:pt-3">
-              {title}
-            </h2>
-            <div className="mt-6 w-full h-full">
-              <Slider {...settings}>
-                {images.map((img, index) => (
-                  <div key={index}>
-                    <img
-                      src={img}
-                      alt={`Slide ${index}`}
-                      className="w-full h-64 lg:h-96 rounded shadow-md"
-                    />
-                  </div>
-                ))}
-              </Slider>
-            </div>
-          </div>
-          <div className="w-full lg:w-1/2 p-2 md:p-4 lg:p-12 space-y-4 md:space-y-6 bg-white-original">
-            <AiOutlineClose
-              className="w-6 md:w-8 lg:w-14 h-6 md:h-8 lg:h-14 cursor-pointer text-xl text-white bg-black absolute top-2 md:top-3 lg:top-6 right-2 md:right-3 lg:right-6 rounded-full transform scale-50 origin-center"
-              onClick={handleClose}
-            />
-            <h3 className="text-xl md:text-2xl lg:text-4xl font-bold text-orange-lighter">
-              Project Overview
-            </h3>
-            <p className="text-gray-dark1 text-sm md:text-lg lg:text-2xl leading-relaxed">
-              <p className="text-gray-dark1 text-lg lg:text-2xl leading-relaxed">
-                Design Philosophy: The design is playful, using a palette of
-                bright and pastel colors that resonate with the joy and
-                innocence of childhood. The user interface is intuitive, making
-                it easy even for the tech-unacquainted to navigate and find what
-                they are looking for. Features: Interactive Product Displays:
-                Items are showcased with interactive 3D views, allowing users to
-                get a near-tangible feel of the product.
-              </p>
-            </p>
-            <div className="mt-6 flex flex-row items-center justify-center space-x-1 md:space-x-2 lg:space-x-4">
-              {technologies.map((tech, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center p-2 lg:p-4 bg-gray-100 rounded shadow hover:shadow-md transition ease-in-out duration-300"
-                >
-                  <AiFillCheckCircle className="text-3xl lg:text-4xl text-orange-light mb-2" />
-                  <span className="text-gray-dark1 font-semibold text-lg lg:text-xl">
-                    {tech}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <a
-              href="https://your-netlify-link.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block mt-4 mb-6 bg-light-orange text-white-original py-1 md:py-2 px-2 md:px-4 rounded hover:bg-orange-500 transition ease-in-out duration-300"
+    <Overlay onClick={handleClose}>
+      <Modal onClick={(e) => e.stopPropagation()}>
+        <CloseButton onClick={handleClose} />
+
+        <LeftSection>
+          <FlipWrapper>
+            <FlipCard
+              className={isFlipping ? flipDirection : ''}
+              onAnimationEnd={handleTransitionEnd}
             >
-              View Project
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
+              <FlipFront>
+                <FlipImage 
+                  src={images[currentIndex]} 
+                  alt={`Project view ${currentIndex + 1}`} 
+                />
+              </FlipFront>
+              <FlipBack>
+                <FlipImage
+                  src={images[(currentIndex + 1) % images.length]}
+                  alt={`Project view ${((currentIndex + 1) % images.length) + 1}`}
+                />
+              </FlipBack>
+            </FlipCard>
+
+            <NextButton onClick={handleNext} disabled={isFlipping}>
+              <IoArrowForward />
+            </NextButton>
+
+            <ProgressContainer>
+              {images.map((_, index) => (
+                <ProgressDot
+                  key={index}
+                  active={index === currentIndex}
+                />
+              ))}
+            </ProgressContainer>
+          </FlipWrapper>
+        </LeftSection>
+
+        <RightSection>
+          <Title>{title}</Title>
+          <Paragraph>
+            <strong>Design Philosophy:</strong> {description}
+          </Paragraph>
+          <Paragraph>
+            <strong>Features:</strong> {features.join(", ")}.
+          </Paragraph>
+          <TechList>
+            {technologies.map((tech, index) => (
+              <TechItem key={index}>
+                <AiFillCheckCircle />
+                {tech}
+              </TechItem>
+            ))}
+          </TechList>
+          <ViewButton
+            href={projectUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Project
+          </ViewButton>
+        </RightSection>
+      </Modal>
+    </Overlay>
   );
 };
 
