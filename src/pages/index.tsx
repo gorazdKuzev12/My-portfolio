@@ -7,6 +7,7 @@ import NavBar from "@/components/NavBar";
 import Blog from "@/components/Blog";
 import Footer from "@/components/Footer";
 import Projects from "@/components/Projects/index";
+import client from "@/lib/sanity";
 
 // Define light and dark themes
 const lightTheme = {
@@ -63,7 +64,27 @@ const LoaderText = styled.div`
   }
 `;
 
-export default function Home() {
+
+
+interface HomeProps {
+  homeData: {
+    bio: string;
+    profileImage: string;
+    skills: string[];
+  };
+  projects: {
+    _id: string;
+    title: string;
+    description: string;
+    date: string;
+    technologies: string[];
+    images: string[];
+    url: string;
+  }[];
+}
+
+export default function Home({ homeData, projects }: HomeProps) {
+  console.log(homeData)
   const [isLoaded, setIsLoaded] = useState(false);
   const [theme, setTheme] = useState<"dark" | "light">("dark"); // default to dark mode
 
@@ -94,13 +115,39 @@ export default function Home() {
           </LoaderText>
         </Loader>
         <NavBar theme={theme} toggleTheme={toggleTheme} />
-        <HomePage theme={theme} toggleTheme={toggleTheme} />
-        <AboutMe theme={theme} toggleTheme={toggleTheme} />
-        <Projects theme={theme} toggleTheme={toggleTheme} />
+        <HomePage theme={theme} toggleTheme={toggleTheme} profileImage={homeData.profileImage} />
+        <AboutMe theme={theme} toggleTheme={toggleTheme} skills={homeData.skills}bio={homeData.bio} />
+        <Projects theme={theme} toggleTheme={toggleTheme} projects={projects}  />
         <ContactMe theme={theme} toggleTheme={toggleTheme} />
         <Blog theme={theme} toggleTheme={toggleTheme} />
         <Footer theme={theme} toggleTheme={toggleTheme} />
       </AppContainer>
     </ThemeProvider>
   );
+}
+export async function getStaticProps() {
+  const homeData = await client.fetch(`
+    *[_type == "about"][0] {
+      bio,
+      "profileImage": profileImage.asset->url,
+      skills
+    }
+  `);
+
+  const projects = await client.fetch(`
+    *[_type == "project"] | order(date desc) {
+      _id,
+      title,
+      description,
+      date,
+      technologies,
+      "images": images[].asset->url,
+      url
+    }
+  `);
+
+  console.log("Projects fetched:", projects); // Debugging
+  return {
+    props: { homeData, projects },
+  };
 }

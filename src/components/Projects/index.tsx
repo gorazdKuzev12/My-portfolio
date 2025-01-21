@@ -86,28 +86,30 @@ const ProjectsScrollWrapper = styled.div`
 `;
 
 // Each project item container (image + overlay)
+// Each project item container (image + overlay)
 const ProjectItem = styled.div`
   position: relative;
   cursor: pointer;
-  min-width: 70vw; /* for smaller screens; adjust as you like */
+  width: 100%; /* Allow flexible width */
+  max-width: 600px; /* Set a maximum width */
+  height: 300px; /* Fixed height for uniformity */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  min-height: 120px;
   margin-bottom: 1rem;
+  margin-right: 1rem;
 
   @media (min-width: 640px) {
-    min-width: 25vw; /* mimic "min-w-[25vw]" from Tailwind */
-    margin-right: 0.5rem;
-    margin-bottom: 0;
+    margin-top: 5rem;
+    margin-right: 3.5rem;
+    margin-bottom: 4rem;
   }
 
   &:last-child {
     margin-right: 0;
   }
 
-  /* On hover, blur the image (we do the transition inside ProjectImage) */
   &:hover img {
     filter: blur(4px);
     transform: scale(1.05);
@@ -115,16 +117,14 @@ const ProjectItem = styled.div`
 
   &:hover .overlay {
     opacity: 1;
-    /* background-color: rgba(0, 0, 0, 0.05); */
   }
 `;
 
 // The project image
 const ProjectImage = styled.img`
-  width: 600px;
-  height: 60%;
-  object-fit: cover;
-  margin:30px;
+  width: 100%; /* Fully fill the container's width */
+  height: 100%; /* Fully fill the container's height */
+  object-fit: cover; /* Ensure the image fills the container with cropping */
   transition: all 0.5s ease-in-out;
 `;
 
@@ -173,7 +173,7 @@ const OverlayDate = styled.p`
   }
 `;
 
-const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
+const Projects: React.FC<Props> = ({ theme, toggleTheme,projects }) => {
   const projectData: ProjectData[] = [
     {
       id: 1,
@@ -278,26 +278,20 @@ const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
       <Title>PROJECTS</Title>
 
       {/* Scrollable projects container */}
-      <ProjectsScrollWrapper
-        ref={scrollRef}
-        onMouseDown={onMouseDown}
-        onMouseLeave={onMouseUp}
-        onMouseUp={onMouseUp}
-        onMouseMove={onMouseMove}
-      >
-        {projectData.map(({ id, title, date, technologies }) => (
+       <ProjectsScrollWrapper>
+        {projects.map((project) => (
           <ProjectItem
-            key={id}
+            key={project._id}
             onClick={() => {
-              setSelectedProject({ id, title, date, technologies });
+              setSelectedProject(project);
               setShowSelectedProject(true);
             }}
           >
-            <ProjectImage src={`./images/project${id}.jpg`} alt={title} />
+            <ProjectImage src={project.images[0]} alt={project.title} />
             <Overlay className="overlay">
               <OverlayContent>
-                <OverlayTitle>{title}</OverlayTitle>
-                <OverlayDate>{date}</OverlayDate>
+                <OverlayTitle>{project.title}</OverlayTitle>
+                <OverlayDate>{project.date}</OverlayDate>
               </OverlayContent>
             </Overlay>
           </ProjectItem>
@@ -310,9 +304,10 @@ const Projects: React.FC<Props> = ({ theme, toggleTheme }) => {
           title={selectedProject.title}
           date={selectedProject.date}
           technologies={selectedProject.technologies}
+          images={selectedProject.images}
+          description={selectedProject.description}
           setShowSelectedProject={setShowSelectedProject}
           setSelectedProject={setSelectedProject}
-          images={sampleImages}
         />
       )}
     </ProjectsContainer>

@@ -5,20 +5,12 @@ import Cube from "../Cube";
 type Props = {
   theme: "dark" | "light";
   toggleTheme: () => void;
+  skills: { name: string; percent: number }[];
+  bio:string;
+
 };
 
-const skills = [
-  { name: "HTML5", percent: 100 },
-  { name: "CSS3 - Tailwind - Style components", percent: 90 },
-  { name: "Next.js", percent: 100 },
-  { name: "React", percent: 90 },
-  { name: "TypeScript.js", percent: 100 },
-  { name: "JavaScript", percent: 100 },
-  { name: "Node.js", percent: 80 },
-  { name: "GraphQL", percent: 70 },
-  { name: "Prisma", percent: 90 },
-  { name: "MySql", percent: 80 },
-];
+
 
 // Animations
 const fadeIn = keyframes`
@@ -215,7 +207,7 @@ const ProgressFill = styled.div<{ percent: number; isVisible: boolean }>`
 `;
 
 // Component
-const AboutMe: React.FC<Props> = ({ theme }) => {
+const AboutMe: React.FC<Props> = ({ theme,skills,bio }) => {
   const [visibleSkills, setVisibleSkills] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -242,20 +234,12 @@ const AboutMe: React.FC<Props> = ({ theme }) => {
   }, []);
 
   return (
-    <AboutSection themeMode={theme}>
+    <AboutSection  id="about-section" themeMode={theme}>
 
       <TextSection>
         <Heading themeMode={theme}>About Me</Heading>
         <Paragraph themeMode={theme}>
-          I am a dedicated Fullstack Developer with 3 years of experience. I
-          have a degree in Computer Science from the University of Maribor. I
-          have honed my skills in JavaScript, ReactJS, Next.js, and Gatsby.js,
-          and I am proficient in leveraging these technologies to build
-          impressive, modern web designs. I also have a deep understanding of
-          UI/UX design principles. My experience extends to using TailwindCSS
-          frameworks to enable efficient and responsive web development. In the
-          realm of Back-end Development, I have built scalable solutions using
-          Node.js and effectively handled data through GraphQL and Prisma.
+        {bio}
         </Paragraph>
       </TextSection>
       <SkillsSection>

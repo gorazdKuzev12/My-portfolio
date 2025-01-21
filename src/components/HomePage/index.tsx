@@ -7,6 +7,8 @@ import useScrollPosition from "../ScrollHandler";
 type Props = {
   theme: "dark" | "light";
   toggleTheme: () => void;
+  profileImage: string; 
+
 };
 
 const Container = styled.div<{ theme: "dark" | "light" }>`
@@ -131,7 +133,7 @@ const CubeContainer = styled.div`
   }
 `;
 
-const HomePage: React.FC<Props> = ({ theme, toggleTheme }) => {
+const HomePage: React.FC<Props> = ({ theme, toggleTheme,profileImage }) => {
   const phrases = [
     "WEB DEVELOPER",
     "FULL STACK ",
@@ -195,8 +197,8 @@ const HomePage: React.FC<Props> = ({ theme, toggleTheme }) => {
       <ImageSection theme={theme}>
         <ImageContainer>
           <StyledMotionImg
-            src="./images/profile2.jpg"
-            alt="Description"
+            src={profileImage}
+            alt="my image"
             style={{ translateY: scrollY / 2 }}
           />
         </ImageContainer>
