@@ -23,15 +23,7 @@ const darkTheme = {
 };
 
 // Global Styles
-const GlobalStyle = createGlobalStyle<{ theme: any }>`
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: ${({ theme }) => theme.background};
-    color: ${({ theme }) => theme.text};
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-`;
+
 
 const AppContainer = styled.div`
   position: relative;

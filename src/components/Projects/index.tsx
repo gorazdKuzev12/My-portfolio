@@ -64,7 +64,7 @@ const Title = styled.h1`
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: #FF4500; /* Light orange */
+  color: #f74412; /* Light orange */
 
   @media (min-width: 640px) {
     font-size: 2.5rem;

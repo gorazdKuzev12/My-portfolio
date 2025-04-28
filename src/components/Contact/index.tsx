@@ -91,7 +91,7 @@ const SectionTitle = styled.h1`
   font-size: 1.25rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #FF4500;
+  color: #f74412;
 
   @media (min-width: ${breakpoints.sm}) {
     font-size: 1.5rem;
@@ -415,7 +415,7 @@ const ContactMe: React.FC<Props> = ({ theme, toggleTheme }) => {
           </ColumnWrapper>
 
           <SecondColumn>
-            <Form action="#" method="post">
+            <Form action="https://formspree.io/f/mbllnelp" method="post">
               <InputRow>
                 <InputField
                   $themeMode={theme}

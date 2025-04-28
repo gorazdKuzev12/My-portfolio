@@ -46,7 +46,7 @@ const ContentWrapper = styled.div`
 const Title = styled.h1`
   font-size: 1.5rem;
   margin-top: 2.5rem;
-  color: #ff4500;
+  color: #f74412;
   font-family: 'Space Grotesk', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -57,16 +57,7 @@ const Title = styled.h1`
     margin-top: 5rem;
   }
 
-  &:after {
-    content: '';
-    position: absolute;
-    bottom: -0.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 3rem;
-    height: 2px;
-    background: #ff4500;
-  }
+ 
 `;
 
 const BlogGrid = styled.div`
@@ -100,7 +91,7 @@ const BlogCard = styled.div<{ theme: string }>`
   }
 `;
 
-const BlogImage = styled.img`
+const BlogImage = styled.img<{ theme: string }>`
   width: 100%;
   height: 16rem;
   object-fit: cover;

@@ -13,6 +13,8 @@ const NavContainer = styled.nav<{ $theme: "dark" | "light" }>`
   height: 110px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   background-color: ${props => props.$theme === "dark" ? "#242424" : "#ffffff"};
+  font-family: 'Urbanist', sans-serif;
+
 `;
 
 const NavContent = styled.div`

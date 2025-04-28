@@ -37,6 +37,7 @@ const fillProgress = keyframes`
 const AboutSection = styled.div<{ themeMode: "dark" | "light" }>`
   width: 100%;
   min-height: 100vh;
+
   padding: 4rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -62,7 +63,7 @@ const TextSection = styled.div`
 const Heading = styled.h1<{ themeMode: "dark" | "light" }>`
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
-  color: ${({ themeMode }) => (themeMode === "dark" ? "#ee5b21" : "#FF4500")};
+  color: ${({ themeMode }) => (themeMode === "dark" ? "#f74412" : "#FF4500")};
   text-transform: uppercase;
   position: relative;
   
@@ -101,7 +102,7 @@ const SkillsSection = styled.div`
 const SkillsHeading = styled.h2<{ themeMode: "dark" | "light" }>`
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: ${({ themeMode }) => (themeMode === "dark" ? "#ee5b21" : "#ea7734")};
+  color: ${({ themeMode }) => (themeMode === "dark" ? "#f74412" : "#ea7734")};
   text-transform: uppercase;
   position: relative;
 
@@ -161,7 +162,7 @@ const SkillName = styled.h3<{ themeMode: "dark" | "light" }>`
 
 const SkillPercent = styled.span<{ themeMode: "dark" | "light" }>`
   font-weight: bold;
-  color: ${({ themeMode }) => (themeMode === "dark" ? "#ee5b21" : "#FF4500")};
+  color: ${({ themeMode }) => (themeMode === "dark" ? "#f47520" : "#FF4500")};
 `;
 const CubeContainer = styled.div`
   position: absolute;
